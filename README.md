@@ -57,8 +57,7 @@ ids and context in the Admanager's constructor.
 		zIdsMap
 	    )
     
-Step 6. By default all priorities are set to Admob->MopUp->Facebook-None. if one fails,
-other takes its place. To change the priorities use following methods:
+Step 6. By default all priorities are set to AdmobNone.
 
 	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.H_MOP_UP)
 	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.H_MOP_UP) 
@@ -109,7 +108,7 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 	    ) {
 	    }
 
-Step 8: By default AdContainers i.e. HnativeBannerView and HnativeAdvacncedView are rounded and
+Step 8: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
 
 	fun zSetBackGroundDrawable(
