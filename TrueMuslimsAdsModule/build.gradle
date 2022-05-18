@@ -56,3 +56,16 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication){
+                from(components["release"])
+                artifactId = "TrueMuslimsAdsModule"
+                groupId = "com.github.TrueMuslimStudio"
+                version = "1.0.0"
+            }
+        }
+    }
+}
