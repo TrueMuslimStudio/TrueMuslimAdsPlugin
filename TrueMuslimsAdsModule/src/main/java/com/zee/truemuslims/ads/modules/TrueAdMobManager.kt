@@ -47,7 +47,6 @@ class TrueAdMobManager(
     @SuppressLint("BinaryOperationInTimber")
     fun zLoadInterstitialAd(
         context: Context,
-        zTimeOut: Long = TrueConstants.h3SecTimeOut,
     ) {
         zIdsMap?.get(TrueWhatAd.Z_INTER)?.let { interId ->
             if (interId.contains("/")) {

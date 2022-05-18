@@ -62,13 +62,11 @@ object TrueAdManager {
 
 
     fun zLoadInterstitial(
-        zActivity: Activity,
         zPriorityType: TrueAdPriorityType = zInterstitialPriorityType,
     ) {
         when (zPriorityType) {
             Z_AD_MOB -> zAdMobManager?.zLoadInterstitialAd(
-                context,
-                zTimeOut
+                context
             )
             Z_NONE -> Unit
         }
@@ -296,8 +294,7 @@ object TrueAdManager {
                 zLoadInterstitial(
                     zPriorityType = zGetInterFallBackPriority(
                         zAdType
-                    ),
-                    zActivity = it
+                    )
                 )
             }
         }
