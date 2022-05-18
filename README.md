@@ -50,7 +50,7 @@ ids and context in the Admanager's constructor.
 	 zAdMobMap[TrueWhatAd.Z_INTER] = getString(R.string.admob_interstitial_id)
 
 
-	 zIdsMap[TrueAdsType.H_ADMOB] = zAdMobMap
+	 zIdsMap[TrueAdsType.Z_ADMOB] = zAdMobMap
 
 	 TrueAdManager.zInitializeAds(
 		this,
@@ -59,8 +59,8 @@ ids and context in the Admanager's constructor.
     
 Step 6. By default all priorities are set to AdmobNone.
 
-	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.H_MOP_UP)
-	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.H_MOP_UP) 
+	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.Z_MOP_UP)
+	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.Z_MOP_UP) 
 
 Step 7. To set the Ads Callback use the following methods in your calling activity, and override the methods.
 
