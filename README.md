@@ -26,10 +26,10 @@ Step 2. Add the dependency
 	
 Step 3. Add the (Required) debug and release ids in the project level gradle file like so:
 
-resValue 'string', 'AdMob_AppId', '"ca-app-pub-3940256099942544~3347511713"'
-resValue 'string', 'Admob_BannerId', '"ca-app-pub-3940256099942544/6300978111"'
-resValue 'string', 'Admob_NativeAdvancedId', '"ca-app-pub-3940256099942544/2247696110"'
-resValue 'string', 'Admob_InterstitialId', '"ca-app-pub-3940256099942544/1033173712"'
+	resValue 'string', 'AdMob_AppId', '"ca-app-pub-3940256099942544~3347511713"'
+	resValue 'string', 'Admob_BannerId', '"ca-app-pub-3940256099942544/6300978111"'
+	resValue 'string', 'Admob_NativeAdvancedId', '"ca-app-pub-3940256099942544/2247696110"'
+	resValue 'string', 'Admob_InterstitialId', '"ca-app-pub-3940256099942544/1033173712"'
 
 Step 4. Add the relevant strings in strings file
 
