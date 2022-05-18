@@ -69,6 +69,7 @@ TrueAdManager.zSetInterCallbacks(zInterCallbacks)
 TrueAdManager.zSetNativeCallbacks(zNativeCallbacks)
 
 Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCallbacks" Abstract classes.
+
 open fun zAdLoaded(
         zAdType: TrueAdsType,
         zWhatAd: TrueWhatAd,
