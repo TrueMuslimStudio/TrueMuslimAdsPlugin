@@ -1,6 +1,10 @@
-package com.zee.truemuslims.ads.modules
+package com.zee.truemuslims.ads.modules.ads.plugin
 
 import android.app.Application
+import com.zee.truemuslims.ads.modules.BuildConfig
+import com.zee.truemuslims.ads.modules.R
+import com.zee.truemuslims.ads.modules.TrueAdManager
+import com.zee.truemuslims.ads.modules.TrueConstants
 
 import com.zee.truemuslims.ads.modules.adlimits.TrueAntiAdLimit
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType
