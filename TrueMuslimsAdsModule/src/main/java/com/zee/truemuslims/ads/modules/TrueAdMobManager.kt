@@ -270,7 +270,7 @@ class TrueAdMobManager(
         }
 
     }
-
+    @Suppress("DEPRECATION")
     private val hAdSize: AdSize
         get() {
             val display =
@@ -534,7 +534,7 @@ class TrueAdMobManager(
     fun zSetNativeCallbacks(adCallbacks: TrueAdCallbacks) {
         zAdCallbacks = adCallbacks
     }
-
+    @Suppress("DEPRECATION")
     companion object {
         fun zGetPixelFromDp(application: Context?, dp: Int): Int {
             val display =
