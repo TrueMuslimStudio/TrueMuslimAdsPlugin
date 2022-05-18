@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.zee.truemuslimsadsmodule.R
+import com.zee.truemuslims.ads.modules.R
+import com.zee.truemuslims.ads.modules.databinding.ZnativeBannerLayoutBinding
+
 
 import com.zee.truemuslims.ads.modules.hDp
-import com.zee.truemuslimsadsmodule.databinding.ZnativeBannerLayoutBinding
+
 import timber.log.Timber
 
 

@@ -2,7 +2,8 @@ package com.zee.truemuslims.ads.modules.customadview
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import com.zee.truemuslimsadsmodule.R
+import com.zee.truemuslims.ads.modules.R
+
 import com.zee.truemuslims.ads.modules.hDp
 
 

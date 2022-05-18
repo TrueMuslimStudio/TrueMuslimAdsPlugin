@@ -13,10 +13,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.zee.truemuslimsadsmodule.R
+
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.zee.truemuslims.ads.modules.R
 
 class TrueTemplateView : FrameLayout {
     private var templateType = 0

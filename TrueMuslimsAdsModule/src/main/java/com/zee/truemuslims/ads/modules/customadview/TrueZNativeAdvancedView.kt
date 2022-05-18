@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.zee.truemuslimsadsmodule.R
+
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.zee.truemuslims.ads.modules.R
+import com.zee.truemuslims.ads.modules.databinding.ZnativeAdvancedLayoutBinding
 
 import com.zee.truemuslims.ads.modules.hDp
-import com.zee.truemuslimsadsmodule.databinding.ZnativeAdvancedLayoutBinding
+
 import timber.log.Timber
 
 class TrueZNativeAdvancedView(

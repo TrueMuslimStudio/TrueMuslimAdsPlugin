@@ -19,11 +19,11 @@ import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
 import com.zee.truemuslims.ads.modules.customadview.TrueZNativeAdvancedView
 import com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
+import com.zee.truemuslims.ads.modules.databinding.AdmobNativeAdvancedLayoutBinding
+import com.zee.truemuslims.ads.modules.databinding.AdmobNativeBannerLayoutBinding
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
 import com.zee.truemuslims.ads.modules.types.TrueWhatAd
 import com.zee.truemuslims.ads.modules.templates.TrueNativeTemplateStyle
-import com.zee.truemuslimsadsmodule.databinding.AdmobNativeAdvancedLayoutBinding
-import com.zee.truemuslimsadsmodule.databinding.AdmobNativeBannerLayoutBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
