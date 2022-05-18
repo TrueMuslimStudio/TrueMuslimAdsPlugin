@@ -118,11 +118,11 @@ are given app's primary color and stroke. To change use method:
 	) {
 	    val zGradientDrawable = GradientDrawable()
 	    zGradientDrawable.apply {
-		setColor(hBackgroundColor)
+		setColor(zBackgroundColor)
 		cornerRadius = hDp(context, zCornerRadius)
 		setStroke(
-		    zStroke.hWidth,
-		    zStroke.hColor
+		    zStroke.zWidth,
+		    zStroke.zColor
 		)
 		zLayoutHAdcontainerBinding.zAdRootCL.background = zGradientDrawable
 	    }
@@ -145,4 +145,4 @@ Step 9: Layout for Native Banner Ad.
 		android:id="@+id/zNativeAdvancedBanner"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:hLoaderContainer="@layout/native_advanced_alternative"/>
+		app:zLoaderContainer="@layout/native_advanced_alternative"/>
