@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.ViewGroup
 import com.zee.truemuslims.ads.modules.TrueAdManager
 import com.zee.truemuslims.ads.modules.TrueError
+import com.zee.truemuslims.ads.modules.ads.plugin.databinding.ActivityMainBinding
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
-import com.zee.truemuslims.ads.modules.databinding.ActivityMainBinding
+
+
 
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
 import com.zee.truemuslims.ads.modules.types.TrueWhatAd
