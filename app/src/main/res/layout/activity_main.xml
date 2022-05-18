@@ -9,7 +9,7 @@
         android:id="@+id/hNativeAdvancedBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hLoaderContainer="@layout/native_advanced_alternative"
+        app:zLoaderContainer="@layout/native_advanced_alternative"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
