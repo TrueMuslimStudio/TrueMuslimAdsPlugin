@@ -134,10 +134,10 @@ Step 9: Layout for Native Banner Ad.
 	 android:id="@+id/zNativeBanner"
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
-	 app:hBackgroundColor="@color/black"
-	 app:hCornerRadius="6"
-	 app:hStrokeWidth="6"
-	 app:hStrokeColor="@color/black"/>
+	 app:zBackgroundColor="@color/black"
+	 app:zCornerRadius="6"
+	 app:zStrokeWidth="6"
+	 app:zStrokeColor="@color/black"/>
  
  Step 10: To Show you own Holder while ad is loading over NativeAdvanced use following:.
  
