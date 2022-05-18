@@ -4,10 +4,10 @@
   </declare-styleable>
 
   <declare-styleable name="zAdContainerClStyleable">
-    <attr name="hBackgroundColor" format="reference"/>
-    <attr name="hCornerRadius" format="integer"/>
-    <attr name="hStrokeWidth" format="integer"/>
-    <attr name="hStrokeColor" format="reference"/>
-    <attr name="hLoaderContainer" format="reference"/>
+    <attr name="zBackgroundColor" format="reference"/>
+    <attr name="zCornerRadius" format="integer"/>
+    <attr name="zStrokeWidth" format="integer"/>
+    <attr name="zStrokeColor" format="reference"/>
+    <attr name="zLoaderContainer" format="reference"/>
   </declare-styleable>
 </resources>
