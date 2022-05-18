@@ -26,6 +26,7 @@ import com.zee.truemuslims.ads.modules.types.TrueWhatAd
 import com.zee.truemuslims.ads.modules.templates.TrueNativeTemplateStyle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -57,80 +58,80 @@ class TrueAdMobManager(
                 if (!TrueAdLimitUtils.isBanned(context, prefNameInter, "Interstitial Ad")) {
                     /** it will be executed when its true*/
                     val adRequest = AdRequest.Builder().build()
-                    Handler().postDelayed(
-                        {
-                            InterstitialAd.load(
-                                zContext!!,
-                                interId,
-                                adRequest,
-                                object : InterstitialAdLoadCallback() {
-                                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    /*Handler().postDelayed(
+                        {*/
+                    InterstitialAd.load(
+                        zContext!!,
+                        interId,
+                        adRequest,
+                        object : InterstitialAdLoadCallback() {
+                            override fun onAdLoaded(interstitialAd: InterstitialAd) {
 
-                                        this@TrueAdMobManager.zInterstitialAd = interstitialAd
+                                this@TrueAdMobManager.zInterstitialAd = interstitialAd
 
-                                        interstitialAd.fullScreenContentCallback =
-                                            object : FullScreenContentCallback() {
-                                                override fun onAdDismissedFullScreenContent() {
-                                                    zInterCallbacks?.zOnAddDismissed(TrueAdsType.Z_ADMOB)
-                                                    zCallBackCalled = true
-                                                }
+                                interstitialAd.fullScreenContentCallback =
+                                    object : FullScreenContentCallback() {
+                                        override fun onAdDismissedFullScreenContent() {
+                                            zInterCallbacks?.zOnAddDismissed(TrueAdsType.Z_ADMOB)
+                                            zCallBackCalled = true
+                                        }
 
-                                                override fun onAdFailedToShowFullScreenContent(
-                                                    adError: AdError
-                                                ) {
+                                        override fun onAdFailedToShowFullScreenContent(
+                                            adError: AdError
+                                        ) {
 
-                                                    zInterCallbacks?.zOnAdFailedToShowFullContent(
-                                                        zAdType = TrueAdsType.Z_ADMOB,
-                                                        zError = TrueError(
-                                                            zMessage = adError.message,
-                                                            zCode = adError.code,
-                                                            zDomain = adError.domain,
-                                                        )
-                                                    )
-                                                    zCallBackCalled = true
-                                                }
-
-                                                override fun onAdShowedFullScreenContent() {
-                                                    zInterCallbacks?.zOnAddShowed(TrueAdsType.Z_ADMOB)
-                                                    zCallBackCalled = true
-                                                    zInterstitialAd = null
-                                                }
-
-                                                override fun onAdClicked() {
-                                                    super.onAdClicked()
-                                                    TruePrefUtils.getInstance()
-                                                        .init(context, prefNameInter)
-                                                        .zUpdateClicksCounter()
-                                                }
-
-                                            }
-                                        TruePrefUtils.getInstance().init(context, prefNameInter)
-                                            .zUpdateImpressionCounter()
-                                        zInterCallbacks?.zOnAddLoaded(zAdType = TrueAdsType.Z_ADMOB)
-                                        zCallBackCalled = true
-                                    }
-
-                                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                                        zInterCallbacks?.zOnAdFailedToLoad(
-                                            zAdType = TrueAdsType.Z_ADMOB,
-                                            zError = TrueError(
-                                                zMessage = loadAdError.message,
-                                                zCode = loadAdError.code,
-                                                zDomain = loadAdError.domain,
+                                            zInterCallbacks?.zOnAdFailedToShowFullContent(
+                                                zAdType = TrueAdsType.Z_ADMOB,
+                                                zError = TrueError(
+                                                    zMessage = adError.message,
+                                                    zCode = adError.code,
+                                                    zDomain = adError.domain,
+                                                )
                                             )
-                                        )
-                                        zCallBackCalled = true
-                                    }
+                                            zCallBackCalled = true
+                                        }
 
-                                }
-                            )
-                            if (zCallBackCalled.not()) {
-                                zInterCallbacks?.zOnAdTimedOut(TrueAdsType.Z_ADMOB)
+                                        override fun onAdShowedFullScreenContent() {
+                                            zInterCallbacks?.zOnAddShowed(TrueAdsType.Z_ADMOB)
+                                            zCallBackCalled = true
+                                            zInterstitialAd = null
+                                        }
+
+                                        override fun onAdClicked() {
+                                            super.onAdClicked()
+                                            TruePrefUtils.getInstance()
+                                                .init(context, prefNameInter)
+                                                .zUpdateClicksCounter()
+                                        }
+
+                                    }
+                                TruePrefUtils.getInstance().init(context, prefNameInter)
+                                    .zUpdateImpressionCounter()
+                                zInterCallbacks?.zOnAddLoaded(zAdType = TrueAdsType.Z_ADMOB)
+                                zCallBackCalled = true
                             }
-                            /*delay(hTimeOut)*/
-                        },
-                        TruePrefUtils.getInstance().init(context, prefNameInter).delayMs
+
+                            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                                zInterCallbacks?.zOnAdFailedToLoad(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zError = TrueError(
+                                        zMessage = loadAdError.message,
+                                        zCode = loadAdError.code,
+                                        zDomain = loadAdError.domain,
+                                    )
+                                )
+                                zCallBackCalled = true
+                            }
+
+                        }
                     )
+                    if (zCallBackCalled.not()) {
+                        zInterCallbacks?.zOnAdTimedOut(TrueAdsType.Z_ADMOB)
+                    }
+                    delay(TruePrefUtils.getInstance().init(context, prefNameInter).delayMs)
+                    /*},
+                    TruePrefUtils.getInstance().init(context, prefNameInter).delayMs
+                )*/
                 } else {
                     Timber.tag("AdmobInter").d(
                         "Inter Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
@@ -153,108 +154,118 @@ class TrueAdMobManager(
         zIsWithFallback: Boolean = true,
     ) {
         zIdsMap?.get(TrueWhatAd.Z_NATIVE_BANNER)?.let { nativeAdvancedId ->
-            if (nativeAdvancedId.contains("/")) {
-                prefNameNativeBanner =
-                    nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
-            }
-            val adLoader = AdLoader.Builder(
-                zContext!!,
-                nativeAdvancedId
-            )
-                .forNativeAd { NativeAd: NativeAd? ->
-                    val cd = ColorDrawable()
-                    val styles =
-                        TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
-                    AdmobNativeBannerLayoutBinding.inflate(
-                        LayoutInflater.from(zContext),
-                        null,
-                        false
-                    ).apply {
-                        myTemplate.visibility = View.VISIBLE
-                        myTemplate.setStyles(styles)
-                        NativeAd?.let {
-                            myTemplate.setNativeAd(it)
-                        }
-                        zNativeBannerView.zShowAdView(viewGroup = root)
-                    }
-
-
-                }.withAdListener(object : AdListener() {
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        super.onAdFailedToLoad(loadAdError)
-                        zNativeBannerView.zShowHideAdLoader(true)
-                        zAdCallbacks?.zAdFailedToLoad(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER,
-                            zError = TrueError(
-                                zMessage = loadAdError.message,
-                                zCode = loadAdError.code,
-                                zDomain = loadAdError.domain,
-                            ),
-                            zNativeView = zNativeBannerView,
-                            zIsWithFallback = zIsWithFallback
-
-                        )
-                    }
-
-                    override fun onAdClosed() {
-                        super.onAdClosed()
-                        zAdCallbacks?.zAdClosed(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-
-                    override fun onAdOpened() {
-                        super.onAdOpened()
-                        zAdCallbacks?.zNativeAdOpened(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-
-                    override fun onAdLoaded() {
-                        super.onAdLoaded()
-                        zAdCallbacks?.zAdLoaded(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                        TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
-                            .zUpdateImpressionCounter()
-                    }
-
-                    override fun onAdClicked() {
-                        super.onAdClicked()
-                        zAdCallbacks?.zAdClicked(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                        TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
-                            .zUpdateClicksCounter()
-                    }
-
-                    override fun onAdImpression() {
-                        super.onAdImpression()
-                        zAdCallbacks?.zAdImpression(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-                })
-                .build()
-            if (!TrueAdLimitUtils.isBanned(zContext, prefNameNativeBanner, "Native Banner Ad")) {
-                Handler().postDelayed(
-                    { adLoader.loadAd(AdRequest.Builder().build()) },
-                    TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner).delayMs
+            CoroutineScope(Dispatchers.Main).launch {
+                if (nativeAdvancedId.contains("/")) {
+                    prefNameNativeBanner =
+                        nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
+                }
+                val adLoader = AdLoader.Builder(
+                    zContext!!,
+                    nativeAdvancedId
                 )
-            } else {
-                Timber.tag("AdmobInter").d(
-                    "Native Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
+                    .forNativeAd { NativeAd: NativeAd? ->
+                        val cd = ColorDrawable()
+                        val styles =
+                            TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
+                        AdmobNativeBannerLayoutBinding.inflate(
+                            LayoutInflater.from(zContext),
+                            null,
+                            false
+                        ).apply {
+                            myTemplate.visibility = View.VISIBLE
+                            myTemplate.setStyles(styles)
+                            NativeAd?.let {
+                                myTemplate.setNativeAd(it)
+                            }
+                            zNativeBannerView.zShowAdView(viewGroup = root)
+                        }
+
+
+                    }.withAdListener(object : AdListener() {
+                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                            super.onAdFailedToLoad(loadAdError)
+                            zNativeBannerView.zShowHideAdLoader(true)
+                            zAdCallbacks?.zAdFailedToLoad(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER,
+                                zError = TrueError(
+                                    zMessage = loadAdError.message,
+                                    zCode = loadAdError.code,
+                                    zDomain = loadAdError.domain,
+                                ),
+                                zNativeView = zNativeBannerView,
+                                zIsWithFallback = zIsWithFallback
+
+                            )
+                        }
+
+                        override fun onAdClosed() {
+                            super.onAdClosed()
+                            zAdCallbacks?.zAdClosed(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+
+                        override fun onAdOpened() {
+                            super.onAdOpened()
+                            zAdCallbacks?.zNativeAdOpened(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            zAdCallbacks?.zAdLoaded(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                            TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
+                                .zUpdateImpressionCounter()
+                        }
+
+                        override fun onAdClicked() {
+                            super.onAdClicked()
+                            zAdCallbacks?.zAdClicked(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                            TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
+                                .zUpdateClicksCounter()
+                        }
+
+                        override fun onAdImpression() {
+                            super.onAdImpression()
+                            zAdCallbacks?.zAdImpression(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+                    })
+                    .build()
+                if (!TrueAdLimitUtils.isBanned(
                         zContext,
                         prefNameNativeBanner,
                         "Native Banner Ad"
                     )
-                )
+                ) {
+                    /*Handler().postDelayed(
+                    {*/
+                    adLoader.loadAd(AdRequest.Builder().build())
+                    delay(TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner).delayMs)
+                    /*},
+                TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner).delayMs
+            )*/
+                } else {
+                    Timber.tag("AdmobInter").d(
+                        "Native Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
+                            zContext,
+                            prefNameNativeBanner,
+                            "Native Banner Ad"
+                        )
+                    )
+                }
             }
         }
 
@@ -280,103 +291,111 @@ class TrueAdMobManager(
     ) {
         try {
             zIdsMap?.get(TrueWhatAd.Z_BANNER)?.let { bannerId ->
-                if (bannerId.contains("/")) {
-                    prefName = bannerId.substring(bannerId.lastIndexOf("/") + 1)
-                }
-                if (zContext != null) {
-                    zBannerAdView = AdView(zContext)
-                    zBannerAdView!!.adUnitId = bannerId
-                    val adSize = hAdSize
-                    zAdViewGroup.layoutParams.height =
-                        zGetPixelFromDp(zContext, 60)
-                    zAddPlaceHolderTextView(zAdViewGroup)
-                    zBannerAdView?.adSize = adSize
-                    zBannerAdView?.adListener = object : AdListener() {
-                        override fun onAdLoaded() {
-                            zAdCallbacks?.zAdLoaded(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zWhatAd = TrueWhatAd.Z_BANNER
-                            )
-                            TruePrefUtils.getInstance().init(context, prefName)
-                                .zUpdateImpressionCounter()
-                            if (zBannerAdView!!.parent != null) {
-                                (zBannerAdView!!.parent as ViewGroup).removeView(zBannerAdView)
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (bannerId.contains("/")) {
+                        prefName = bannerId.substring(bannerId.lastIndexOf("/") + 1)
+                    }
+                    if (zContext != null) {
+                        zBannerAdView = AdView(zContext)
+                        zBannerAdView!!.adUnitId = bannerId
+                        val adSize = hAdSize
+                        zAdViewGroup.layoutParams.height =
+                            zGetPixelFromDp(zContext, 60)
+                        zAddPlaceHolderTextView(zAdViewGroup)
+                        zBannerAdView?.adSize = adSize
+                        zBannerAdView?.adListener = object : AdListener() {
+                            override fun onAdLoaded() {
+                                zAdCallbacks?.zAdLoaded(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zWhatAd = TrueWhatAd.Z_BANNER
+                                )
+                                TruePrefUtils.getInstance().init(context, prefName)
+                                    .zUpdateImpressionCounter()
+                                if (zBannerAdView!!.parent != null) {
+                                    (zBannerAdView!!.parent as ViewGroup).removeView(zBannerAdView)
+                                }
+                                zAdViewGroup.addView(zBannerAdView)
                             }
-                            zAdViewGroup.addView(zBannerAdView)
-                        }
 
-                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                            super.onAdFailedToLoad(loadAdError)
-                            zAdCallbacks?.zAdFailedToLoad(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zError = TrueError(
-                                    zMessage = loadAdError.message,
-                                    zCode = loadAdError.code,
-                                    zDomain = loadAdError.domain,
-                                ),
-                                zNativeView = zAdViewGroup,
-                                zWhatAd = TrueWhatAd.Z_BANNER,
-                                zIsWithFallback = zIsWithFallback,
-                            )
-                        }
+                            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                                super.onAdFailedToLoad(loadAdError)
+                                zAdCallbacks?.zAdFailedToLoad(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zError = TrueError(
+                                        zMessage = loadAdError.message,
+                                        zCode = loadAdError.code,
+                                        zDomain = loadAdError.domain,
+                                    ),
+                                    zNativeView = zAdViewGroup,
+                                    zWhatAd = TrueWhatAd.Z_BANNER,
+                                    zIsWithFallback = zIsWithFallback,
+                                )
+                            }
 
-                        override fun onAdClosed() {
-                            zAdCallbacks?.zAdClosed(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zWhatAd = TrueWhatAd.Z_BANNER
-                            )
-                        }
+                            override fun onAdClosed() {
+                                zAdCallbacks?.zAdClosed(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zWhatAd = TrueWhatAd.Z_BANNER
+                                )
+                            }
 
-                        override fun onAdOpened() {
-                            zAdCallbacks?.zNativeAdOpened(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zWhatAd = TrueWhatAd.Z_BANNER
-                            )
-                            TruePrefUtils.getInstance().init(context, prefName)
-                                .zUpdateClicksCounter()
-                            if (TruePrefUtils.getInstance().init(context, prefName).hideOnClick) {
-                                if (zBannerAdView != null) {
-                                    zBannerAdView!!.visibility = View.GONE
+                            override fun onAdOpened() {
+                                zAdCallbacks?.zNativeAdOpened(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zWhatAd = TrueWhatAd.Z_BANNER
+                                )
+                                TruePrefUtils.getInstance().init(context, prefName)
+                                    .zUpdateClicksCounter()
+                                if (TruePrefUtils.getInstance()
+                                        .init(context, prefName).hideOnClick
+                                ) {
+                                    if (zBannerAdView != null) {
+                                        zBannerAdView!!.visibility = View.GONE
+                                    }
                                 }
                             }
-                        }
 
-                        override fun onAdClicked() {
-                            zAdCallbacks?.zAdClicked(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zWhatAd = TrueWhatAd.Z_BANNER
-                            )
-                        }
-
-                        override fun onAdImpression() {
-                            zAdCallbacks?.zAdImpression(
-                                zAdType = TrueAdsType.Z_ADMOB,
-                                zWhatAd = TrueWhatAd.Z_BANNER
-                            )
-                        }
-                    }
-                    val adRequest = AdRequest.Builder().build()
-                    /** Check if Ad is Banned*/
-                    if (!TrueAdLimitUtils.isBanned(context, prefName, "Banner Ad")) {
-                        Handler().postDelayed(
-                            { zBannerAdView!!.loadAd(adRequest) },
-                            TruePrefUtils.getInstance().init(context, prefName).delayMs
-                        )
-                    } else {
-                        Timber.tag("Banner_Ads")
-                            .d(
-                                "Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
-                                    context,
-                                    prefName,
-                                    "Banner Ad"
+                            override fun onAdClicked() {
+                                zAdCallbacks?.zAdClicked(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zWhatAd = TrueWhatAd.Z_BANNER
                                 )
-                            )
+                            }
+
+                            override fun onAdImpression() {
+                                zAdCallbacks?.zAdImpression(
+                                    zAdType = TrueAdsType.Z_ADMOB,
+                                    zWhatAd = TrueWhatAd.Z_BANNER
+                                )
+                            }
+                        }
+                        val adRequest = AdRequest.Builder().build()
+                        /** Check if Ad is Banned*/
+                        if (!TrueAdLimitUtils.isBanned(context, prefName, "Banner Ad")) {
+                            /*Handler().postDelayed(
+                                {*/
+                            zBannerAdView!!.loadAd(adRequest)
+                            delay(TruePrefUtils.getInstance().init(context, prefName).delayMs)
+                            /*},
+                            TruePrefUtils.getInstance().init(context, prefName).delayMs
+                            )*/
+                        } else {
+                            Timber.tag("Banner_Ads")
+                                .d(
+                                    "Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
+                                        context,
+                                        prefName,
+                                        "Banner Ad"
+                                    )
+                                )
+                        }
                     }
                 }
             }
         } catch (e: NotFoundException) {
             e.printStackTrace()
         }
+
     }
 
     private fun zAddPlaceHolderTextView(adContainerView: ViewGroup?) {
@@ -396,107 +415,113 @@ class TrueAdMobManager(
         zIsWithFallback: Boolean = true,
     ) {
         zIdsMap?.get(TrueWhatAd.Z_NATIVE_ADVANCED)?.let { nativeAdvancedId ->
-            if (nativeAdvancedId.contains("/")) {
-                prefNameNative = nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
-            }
-            val adLoader = AdLoader.Builder(
-                zContext!!,
-                nativeAdvancedId
-            )
-                .forNativeAd { unifiedNativeAd: NativeAd? ->
-                    val cd = ColorDrawable()
-                    val styles =
-                        TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
-                    AdmobNativeAdvancedLayoutBinding.inflate(
-                        LayoutInflater.from(zContext),
-                        null,
-                        false
-                    ).apply {
-                        myTemplate.visibility = View.VISIBLE
-                        myTemplate.setStyles(styles)
-                        unifiedNativeAd?.let {
-                            myTemplate.setNativeAd(it)
-                        }
-                        zNativeAdvancedView.zShowAdView(viewGroup = root)
-                    }
-
-                }.withAdListener(object : AdListener() {
-                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                        super.onAdFailedToLoad(loadAdError)
-                        zNativeAdvancedView.zShowHideAdLoader(true)
-                        zAdCallbacks?.zAdFailedToLoad(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED,
-                            zError = TrueError(
-                                zMessage = loadAdError.message,
-                                zCode = loadAdError.code,
-                                zDomain = loadAdError.domain,
-                            ),
-                            zNativeView = zNativeAdvancedView,
-                            zIsWithFallback = zIsWithFallback
-                        )
-                    }
-
-                    override fun onAdClosed() {
-                        super.onAdClosed()
-                        zAdCallbacks?.zAdClosed(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-
-                    override fun onAdOpened() {
-                        super.onAdOpened()
-                        zAdCallbacks?.zNativeAdOpened(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-
-                    override fun onAdLoaded() {
-                        super.onAdLoaded()
-                        zAdCallbacks?.zAdLoaded(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                        TruePrefUtils.getInstance().init(context, prefNameNative)
-                            .zUpdateImpressionCounter()
-                    }
-
-                    override fun onAdClicked() {
-                        super.onAdClicked()
-                        zAdCallbacks?.zAdClicked(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                        TruePrefUtils.getInstance().init(context, prefNameNative)
-                            .zUpdateClicksCounter()
-                    }
-
-                    override fun onAdImpression() {
-                        super.onAdImpression()
-                        zAdCallbacks?.zAdImpression(
-                            zAdType = TrueAdsType.Z_ADMOB,
-                            zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
-                        )
-                    }
-                })
-                .build()
-            if (!TrueAdLimitUtils.isBanned(context, prefNameNative, "Native Ad")) {
-                /** It will be executed when its true*/
-                Handler().postDelayed(
-                    { adLoader.loadAd(AdRequest.Builder().build()) },
-                    TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
+            CoroutineScope(Dispatchers.Main).launch {
+                if (nativeAdvancedId.contains("/")) {
+                    prefNameNative =
+                        nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
+                }
+                val adLoader = AdLoader.Builder(
+                    zContext!!,
+                    nativeAdvancedId
                 )
-            } else {
-                Timber.tag("Native_Ads")
-                    .d(
-                        "Native Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
-                            context,
-                            prefNameNative,
-                            "Native Ad"
+                    .forNativeAd { unifiedNativeAd: NativeAd? ->
+                        val cd = ColorDrawable()
+                        val styles =
+                            TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
+                        AdmobNativeAdvancedLayoutBinding.inflate(
+                            LayoutInflater.from(zContext),
+                            null,
+                            false
+                        ).apply {
+                            myTemplate.visibility = View.VISIBLE
+                            myTemplate.setStyles(styles)
+                            unifiedNativeAd?.let {
+                                myTemplate.setNativeAd(it)
+                            }
+                            zNativeAdvancedView.zShowAdView(viewGroup = root)
+                        }
+
+                    }.withAdListener(object : AdListener() {
+                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                            super.onAdFailedToLoad(loadAdError)
+                            zNativeAdvancedView.zShowHideAdLoader(true)
+                            zAdCallbacks?.zAdFailedToLoad(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED,
+                                zError = TrueError(
+                                    zMessage = loadAdError.message,
+                                    zCode = loadAdError.code,
+                                    zDomain = loadAdError.domain,
+                                ),
+                                zNativeView = zNativeAdvancedView,
+                                zIsWithFallback = zIsWithFallback
+                            )
+                        }
+
+                        override fun onAdClosed() {
+                            super.onAdClosed()
+                            zAdCallbacks?.zAdClosed(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+
+                        override fun onAdOpened() {
+                            super.onAdOpened()
+                            zAdCallbacks?.zNativeAdOpened(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            zAdCallbacks?.zAdLoaded(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                            TruePrefUtils.getInstance().init(context, prefNameNative)
+                                .zUpdateImpressionCounter()
+                        }
+
+                        override fun onAdClicked() {
+                            super.onAdClicked()
+                            zAdCallbacks?.zAdClicked(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                            TruePrefUtils.getInstance().init(context, prefNameNative)
+                                .zUpdateClicksCounter()
+                        }
+
+                        override fun onAdImpression() {
+                            super.onAdImpression()
+                            zAdCallbacks?.zAdImpression(
+                                zAdType = TrueAdsType.Z_ADMOB,
+                                zWhatAd = TrueWhatAd.Z_NATIVE_BANNER
+                            )
+                        }
+                    })
+                    .build()
+                if (!TrueAdLimitUtils.isBanned(context, prefNameNative, "Native Ad")) {
+                    /** It will be executed when its true*/
+                    /*Handler().postDelayed(
+                        {*/
+                    adLoader.loadAd(AdRequest.Builder().build())
+                    delay(TruePrefUtils.getInstance().init(context, prefNameNative).delayMs)
+                    /*},
+                    TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
+                )*/
+                } else {
+                    Timber.tag("Native_Ads")
+                        .d(
+                            "Native Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
+                                context,
+                                prefNameNative,
+                                "Native Ad"
+                            )
                         )
-                    )
+                }
             }
         }
 
