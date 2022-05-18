@@ -43,21 +43,21 @@ class TrueZNativeAdvancedView(
     private fun zSetBackGroundDrawable(zTypedArray: TypedArray) {
         zTypedArray.apply {
             val zColor = getColor(
-                R.styleable.zAdContainerClStyleable_hBackgroundColor,
+                R.styleable.zAdContainerClStyleable_zBackgroundColor,
                 ContextCompat.getColor(context, R.color.white)
             )
 
             val zCornerRadius = getInt(
-                R.styleable.zAdContainerClStyleable_hCornerRadius,
+                R.styleable.zAdContainerClStyleable_zCornerRadius,
                 6
             )
             val zStrokeColor = getColor(
-                R.styleable.zAdContainerClStyleable_hStrokeColor,
+                R.styleable.zAdContainerClStyleable_zStrokeColor,
                 ContextCompat.getColor(context, R.color.colorPrimaryDark)
             )
 
             val zStrokeWidth = getInt(
-                R.styleable.zAdContainerClStyleable_hStrokeWidth,
+                R.styleable.zAdContainerClStyleable_zStrokeWidth,
                 1
             )
 
@@ -80,7 +80,7 @@ class TrueZNativeAdvancedView(
     private fun zFindLoaderView(typedArray: TypedArray): View {
 
         val zLoaderContainer = typedArray.getResourceId(
-            R.styleable.zAdContainerClStyleable_hLoaderContainer,
+            R.styleable.zAdContainerClStyleable_zLoaderContainer,
             Z_SHOW_SHIMMER
         )
         when (zLoaderContainer) {
