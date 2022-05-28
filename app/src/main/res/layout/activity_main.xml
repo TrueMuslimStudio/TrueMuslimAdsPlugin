@@ -9,37 +9,45 @@
         android:id="@+id/hNativeAdvancedBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:zLoaderContainer="@layout/native_advanced_alternative"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/hShowInter"
+        app:zLoaderContainer="@layout/native_advanced_alternative" />
 
-    <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
-        android:id="@+id/hNativeBanner"
+    <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerFlippingView
+        android:id="@+id/hNativeFlippingBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hNativeAdvancedBanner" />
+    <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerSimpleView
+        android:id="@+id/hNativeSimpleBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hNativeFlippingBanner" />
 
-    <FrameLayout
+    <com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
         android:id="@+id/hBannerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hNativeBanner" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/hShowInter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show InterAd"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hBannerContainer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

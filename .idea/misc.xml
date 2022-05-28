@@ -11,6 +11,13 @@
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/drawable/premimum_btn_background.xml" value="0.256" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/admob_banner_layout.xml" value="0.36082474226804123" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/admob_native_advanced_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/admob_native_banner_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/custome_templete_view.xml" value="0.33" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_banner_template_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_large_template_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_medium_template_view.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_medium_template_view_bigg.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_medium_template_view_for_list.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/gnt_small_template_view.xml" value="0.36666666666666664" />
@@ -18,8 +25,10 @@
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/mopup_native_advanced_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/mopup_native_banner_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/native_advanced_alternative.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/shimmer_banner_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/shimmer_native_advanced_layout.xml" value="0.36666666666666664" />
-        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/shimmer_native_banner_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/shimmer_native_banner_layout.xml" value="0.75" />
+        <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/zbanner_ad_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/znative_advanced_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/TrueMuslimsAdsModule/src/main/res/layout/znative_banner_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/TRUE MUSLIMS ADS LIMIT PROJECT/TrueMuslimAdsProject/app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />

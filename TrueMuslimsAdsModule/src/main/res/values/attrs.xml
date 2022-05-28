@@ -10,4 +10,15 @@
     <attr name="zStrokeColor" format="reference"/>
     <attr name="zLoaderContainer" format="reference"/>
   </declare-styleable>
+
+  <declare-styleable name="TemplateBannerView">
+    <attr name="gnt_template_banner_type" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="zAdBannerContainerClStyleable">
+    <attr name="zBannerBackgroundColor" format="reference"/>
+    <attr name="zBannerStrokeWidth" format="integer"/>
+    <attr name="zBannerStrokeColor" format="reference"/>
+    <attr name="zBannerLoaderContainer" format="reference"/>
+  </declare-styleable>
 </resources>

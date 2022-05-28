@@ -99,7 +99,8 @@ class MainActivity : AppCompatActivity() {
 
 //        TrueAdManager.hLoadInterstitial(this)
         TrueAdManager.zShowNativeAdvanced(hMainBinding.hNativeAdvancedBanner)
-        TrueAdManager.zShowNativeBanner(hMainBinding.hNativeBanner)
+        TrueAdManager.zShowFlippingNativeBanner(hMainBinding.hNativeFlippingBanner)
+        TrueAdManager.zShowSimpleNativeBanner(hMainBinding.hNativeSimpleBanner)
         TrueAdManager.zShowBannerWithOutFallback(hMainBinding.hBannerContainer)
 
 

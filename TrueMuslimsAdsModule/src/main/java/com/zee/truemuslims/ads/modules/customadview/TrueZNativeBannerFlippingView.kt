@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.zee.truemuslims.ads.modules.R
-import com.zee.truemuslims.ads.modules.databinding.ZnativeBannerLayoutBinding
+import com.zee.truemuslims.ads.modules.TrueConstants
+import com.zee.truemuslims.ads.modules.databinding.ZnativeBannerFlippingLayoutBinding
+
 
 
 import com.zee.truemuslims.ads.modules.hDp
@@ -18,12 +21,12 @@ import com.zee.truemuslims.ads.modules.hDp
 import timber.log.Timber
 
 
-class TrueZNativeBannerView(
+class TrueZNativeBannerFlippingView(
     context: Context,
     attrs: AttributeSet?
 ) : ConstraintLayout(context, attrs) {
 
-    private var zLayoutHAdContainerBinding = ZnativeBannerLayoutBinding.inflate(
+    private var zLayoutHAdContainerBinding = ZnativeBannerFlippingLayoutBinding.inflate(
         LayoutInflater.from(context),
         this,
         true
@@ -49,16 +52,16 @@ class TrueZNativeBannerView(
 
             val zCornerRadius = getInt(
                 R.styleable.zAdContainerClStyleable_zCornerRadius,
-                6
+                0
             )
             val zStrokeColor = getColor(
                 R.styleable.zAdContainerClStyleable_zStrokeColor,
-                ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                ContextCompat.getColor(context, R.color.gnt_ad_bg_gray)
             )
 
             val zStrokeWidth = getInt(
                 R.styleable.zAdContainerClStyleable_zStrokeWidth,
-                1
+                2
             )
 
             zSetBackGroundDrawable(
@@ -75,17 +78,21 @@ class TrueZNativeBannerView(
     }
 
     fun zShowHideAdLoader(hShowLoader: Boolean) {
-        when (hShowLoader) {
-            true -> {
-                zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.VISIBLE
-                zLayoutHAdContainerBinding.zAdContainer.visibility = View.GONE
-            }
-            false -> {
-                zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.GONE
-                zLayoutHAdContainerBinding.zAdContainer.visibility = View.VISIBLE
+        if (!TrueConstants.isNetworkAvailable(context)) {
+            zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.GONE
+            zLayoutHAdContainerBinding.zAdContainer.visibility = View.GONE
+        } else {
+            when (hShowLoader) {
+                true -> {
+                    zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.VISIBLE
+                    zLayoutHAdContainerBinding.zAdContainer.visibility = View.GONE
+                }
+                false -> {
+                    zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.GONE
+                    zLayoutHAdContainerBinding.zAdContainer.visibility = View.VISIBLE
+                }
             }
         }
-
     }
 
     fun hShowHideAdView(hShowAdView: Boolean) {
@@ -103,7 +110,7 @@ class TrueZNativeBannerView(
 
     private fun zSetBackGroundDrawable(
         zBackgroundColor: Int,
-        zCornerRadius: Int = 6,
+        zCornerRadius: Int = 0,
         zStroke: TrueStroke = TrueStroke(context)
     ) {
         val zGradientDrawable = GradientDrawable()

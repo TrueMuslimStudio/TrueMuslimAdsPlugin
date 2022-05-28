@@ -1,6 +1,8 @@
 package com.zee.truemuslims.ads.modules.ads.plugin
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.zee.truemuslims.ads.modules.BuildConfig
 
 import com.zee.truemuslims.ads.modules.TrueAdManager
@@ -14,6 +16,7 @@ import timber.log.Timber
 
 class BaseApplication : Application() {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate() {
         super.onCreate()
         zTintTimber()
@@ -22,7 +25,8 @@ class BaseApplication : Application() {
         val zAdMobMap = hashMapOf<TrueWhatAd, String>()
 
         zAdMobMap[TrueWhatAd.Z_NATIVE_ADVANCED] = getString(R.string.admob_native_advanced_id)
-        zAdMobMap[TrueWhatAd.Z_NATIVE_BANNER] = getString(R.string.admob_native_advanced_id)
+        zAdMobMap[TrueWhatAd.Z_NATIVE_BANNER_FLIPPING] = getString(R.string.admob_native_advanced_id)
+        zAdMobMap[TrueWhatAd.Z_NATIVE_BANNER_SIMPLE] = getString(R.string.admob_native_advanced_id)
         zAdMobMap[TrueWhatAd.Z_BANNER] = getString(R.string.admob_banner_id)
         zAdMobMap[TrueWhatAd.Z_INTER] = getString(R.string.admob_interstitial_id)
 
@@ -33,13 +37,14 @@ class BaseApplication : Application() {
             zIdsMap
         )
         TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.Z_AD_MOB)
-        TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.Z_AD_MOB)
+        TrueAdManager.zSetNativeBannerPriorityFlipping(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetInterstitialPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetBannerPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetTimeout(TrueConstants.h3SecTimeOut)
-        TrueAntiAdLimit.getInstance()
-            .init(this, "https://api.grezz.dev/anti-ad-limit/PUBGB.json")
-
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            TrueAntiAdLimit.getInstance()
+                .init(this, "https://api.grezz.dev/anti-ad-limit/PUBGB.json")
+        }
     }
 
 

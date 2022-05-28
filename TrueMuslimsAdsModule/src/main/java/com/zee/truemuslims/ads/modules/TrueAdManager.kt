@@ -6,8 +6,10 @@ import android.content.Context
 import android.view.ViewGroup
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
+import com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
 import com.zee.truemuslims.ads.modules.customadview.TrueZNativeAdvancedView
-import com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
+import com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerFlippingView
+import com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerSimpleView
 import com.zee.truemuslims.ads.modules.fallbackstrategies.TrueAdMobFallbackTrueStrategy
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType.*
@@ -21,8 +23,10 @@ object TrueAdManager {
     private var zAdMobManager: TrueAdMobManager? = null
     private var TAG = "AdManagerClass"
     lateinit var context: Context
+    lateinit var activity: Activity
     private var zBannerPriorityType: TrueAdPriorityType = Z_AD_MOB
-    private var zNativeBannerPriorityType: TrueAdPriorityType = Z_AD_MOB
+    private var zNativeBannerSimplePriorityType: TrueAdPriorityType = Z_AD_MOB
+    private var zNativeBannerFlippingPriorityType: TrueAdPriorityType = Z_AD_MOB
     private var zNativeAdvancedPriorityType: TrueAdPriorityType = Z_AD_MOB
     private var zInterstitialPriorityType: TrueAdPriorityType = Z_AD_MOB
     private var zTimeOut: Long = TrueConstants.h3SecTimeOut
@@ -64,32 +68,35 @@ object TrueAdManager {
     fun zLoadInterstitial(
         zPriorityType: TrueAdPriorityType = zInterstitialPriorityType,
     ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zLoadInterstitialAd(
-                context
-            )
-            Z_NONE -> Unit
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zLoadInterstitialAd(
+                    context
+                )
+                Z_NONE -> Unit
+            }
         }
-
     }
 
     fun zShowInterstitial(
         activity: Activity,
         priority: TrueAdPriorityType = zInterstitialPriorityType,
     ) {
-        when (priority) {
-            Z_AD_MOB -> {
-                if (zAdMobManager?.zInterstitialAd != null) {
-                    zAdMobManager?.zInterstitialAd?.show(activity)
-                    return
-                } else {
-                    zAdMobManager?.zLoadInterstitialAd(
-                        context
-                    )
-                }
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (priority) {
+                Z_AD_MOB -> {
+                    if (zAdMobManager?.zInterstitialAd != null) {
+                        zAdMobManager?.zInterstitialAd?.show(activity)
+                        return
+                    } else {
+                        zAdMobManager?.zLoadInterstitialAd(
+                            context
+                        )
+                    }
 
+                }
+                else -> Unit
             }
-            else -> Unit
         }
     }
 
@@ -131,38 +138,69 @@ object TrueAdManager {
     }
 
     fun zShowBanner(
-        bannerAdContainer: ViewGroup,
+        zBannerView: TrueZBannerView,
         zPriorityType: TrueAdPriorityType = zBannerPriorityType,
     ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowBanner(
-                context,
-                bannerAdContainer
-            )
-            else -> Unit
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zShowBanner(
+                    context,
+                    zBannerView
+                )
+                else -> Unit
+            }
         }
     }
 
 
-    fun zShowNativeBanner(
-        zNativeBannerView: TrueZNativeBannerView,
-        zPriorityType: TrueAdPriorityType = zNativeBannerPriorityType,
+    fun zShowFlippingNativeBanner(
+        zNativeBannerFlippingView: TrueZNativeBannerFlippingView,
+        zPriorityType: TrueAdPriorityType = zNativeBannerSimplePriorityType,
     ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowNativeBanner(
-                zNativeBannerView
-            )
-            else -> Unit
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zShowNativeBannerFlipping(
+                    zNativeBannerFlippingView
+                )
+                else -> Unit
+            }
         }
     }
 
-    private fun zGetFallBackPriorityForNativeBanner(
+    fun zShowSimpleNativeBanner(
+        zNativeBannerSimpleView: TrueZNativeBannerSimpleView,
+        zPriorityType: TrueAdPriorityType = zNativeBannerFlippingPriorityType,
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zShowNativeBannerSimple(
+                    zNativeBannerSimpleView
+                )
+                else -> Unit
+            }
+        }
+    }
+
+    private fun zGetFallBackPriorityForNativeBannerFlipping(
         zAdsType: TrueAdsType,
     ): TrueAdPriorityType {
-        return when (zNativeBannerPriorityType) {
+        return when (zNativeBannerSimplePriorityType) {
             Z_AD_MOB ->
                 TrueAdMobFallbackTrueStrategy.zNativeBannerStrategy(
-                    zGlobalPriority = zNativeBannerPriorityType,
+                    zGlobalPriority = zNativeBannerSimplePriorityType,
+                    zAdsType = zAdsType
+                )
+            else -> Z_NONE
+        }
+    }
+
+    private fun zGetFallBackPriorityForNativeBannerSimple(
+        zAdsType: TrueAdsType,
+    ): TrueAdPriorityType {
+        return when (zNativeBannerFlippingPriorityType) {
+            Z_AD_MOB ->
+                TrueAdMobFallbackTrueStrategy.zNativeBannerStrategy(
+                    zGlobalPriority = zNativeBannerFlippingPriorityType,
                     zAdsType = zAdsType
                 )
             else -> Z_NONE
@@ -173,12 +211,14 @@ object TrueAdManager {
         zNativeAdvancedView: TrueZNativeAdvancedView,
         zPriorityType: TrueAdPriorityType = zNativeAdvancedPriorityType,
     ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowNativeAdvanced(
-                context,
-                zNativeAdvancedView
-            )
-            Z_NONE -> Unit
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zShowNativeAdvanced(
+                    context,
+                    zNativeAdvancedView
+                )
+                Z_NONE -> Unit
+            }
         }
     }
 
@@ -208,55 +248,32 @@ object TrueAdManager {
 
 
     fun zShowBannerWithOutFallback(
-        bannerAdContainer: ViewGroup,
+        bannerAdContainer: TrueZBannerView,
         zPriorityType: TrueAdPriorityType = zBannerPriorityType,
     ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowBanner(
-                context,
-                zAdViewGroup = bannerAdContainer,
-                zIsWithFallback = false
-            )
-            else -> Unit
-        }
-    }
-
-
-    fun zShowNativeBannerWithOutFallback(
-        zNativeBannerView: TrueZNativeBannerView,
-        zPriorityType: TrueAdPriorityType = zNativeBannerPriorityType,
-    ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowNativeBanner(
-                zNativeBannerView = zNativeBannerView,
-                zIsWithFallback = false
-            )
-
-            else -> Unit
-        }
-    }
-
-
-    fun zShowNativeAdvancedWithOutFallback(
-        zNativeBannerView: TrueZNativeAdvancedView,
-        zPriorityType: TrueAdPriorityType = zNativeBannerPriorityType,
-    ) {
-        when (zPriorityType) {
-            Z_AD_MOB -> zAdMobManager?.zShowNativeAdvanced(
-                context,
-                zNativeAdvancedView = zNativeBannerView,
-                zIsWithFallback = false
-            )
-            else -> Unit
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> zAdMobManager?.zShowBanner(
+                    context,
+                    zBannerView = bannerAdContainer,
+                    zIsWithFallback = false
+                )
+                else -> Unit
+            }
         }
     }
 
 
     /**For Manually chaning the priorities*/
-    fun zSetNativeBannerPriority(
+    fun zSetNativeBannerPriorityFlipping(
         nativeBannerPriorityType: TrueAdPriorityType,
     ) {
-        zNativeBannerPriorityType = nativeBannerPriorityType
+        zNativeBannerSimplePriorityType = nativeBannerPriorityType
+    }
+    fun zSetNativeBannerPrioritySimple(
+        nativeBannerPriorityType: TrueAdPriorityType,
+    ) {
+        zNativeBannerFlippingPriorityType = nativeBannerPriorityType
     }
 
     fun zSetNativeAdvancedPriority(
@@ -369,7 +386,7 @@ object TrueAdManager {
             zWhatAd: TrueWhatAd,
             zError: TrueError,
             zNativeView: ViewGroup,
-            zIsWithFallback: Boolean,
+            zIsWithFallback: Boolean
         ) {
             zAdManagerAdCallbacks?.zAdFailedToLoad(
                 zAdType = zAdType,
@@ -381,9 +398,15 @@ object TrueAdManager {
                 )
             when (zIsWithFallback) {
                 true -> when (zWhatAd) {
-                    TrueWhatAd.Z_NATIVE_BANNER -> zShowNativeBanner(
-                        zNativeBannerView = zNativeView as TrueZNativeBannerView,
-                        zPriorityType = zGetFallBackPriorityForNativeBanner(
+                    TrueWhatAd.Z_NATIVE_BANNER_FLIPPING -> zShowFlippingNativeBanner(
+                        zNativeBannerFlippingView = zNativeView as TrueZNativeBannerFlippingView,
+                        zPriorityType = zGetFallBackPriorityForNativeBannerFlipping(
+                            zAdsType = zAdType
+                        )
+                    )
+                    TrueWhatAd.Z_NATIVE_BANNER_SIMPLE -> zShowSimpleNativeBanner(
+                        zNativeBannerSimpleView = zNativeView as TrueZNativeBannerSimpleView,
+                        zPriorityType = zGetFallBackPriorityForNativeBannerSimple(
                             zAdsType = zAdType
                         )
                     )
@@ -394,7 +417,7 @@ object TrueAdManager {
                         )
                     )
                     TrueWhatAd.Z_BANNER -> zShowBanner(
-                        bannerAdContainer = zNativeView,
+                        zBannerView = zNativeView as TrueZBannerView,
                         zPriorityType = zGetFallbackPriorityForBanner(
                             zAdsType = zAdType
                         )
@@ -416,9 +439,4 @@ object TrueAdManager {
             )
         }
     }
-
 }
-
-
-
-
