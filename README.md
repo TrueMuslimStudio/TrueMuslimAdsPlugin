@@ -7,9 +7,7 @@ Shimmer animations while Ads is loaded.
 Banner size is calculated automatically according to varying screen sizes.
 To get a Git project into your build:
 
-Step 1. Add the JitPack repository to your build file
-
-Add it in your root build.gradle at the end of repositories:
+Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
 
 	allprojects {
 		repositories {
