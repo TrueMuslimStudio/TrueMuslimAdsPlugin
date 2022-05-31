@@ -58,7 +58,6 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 		zWhatAd: TrueWhatAd,
 	    ) {
 	    }
-
 	    open fun zAdClicked(
 		zAdType: TrueAdsType,
 		zWhatAd: TrueWhatAd
