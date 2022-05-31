@@ -93,11 +93,12 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 		zWhatAd: TrueWhatAd
 	    ) {
 	    }
-<!-- 	    Banner AdView -->
-	    hMainBinding.hBannerContainer,getString(R.string.Admob_BannerId)
+Step 8:Load Ads By passing View And AdId
+Banner AdView
+	hMainBinding.hBannerContainer,getString(R.string.Admob_BannerId)
 	    
-<!-- 	  Native Advance AdView   -->
-		TrueAdManager.zShowNativeAdvanced(hMainBinding.hNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
+Native Advance AdView
+	TrueAdManager.zShowNativeAdvanced(hMainBinding.hNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
 	    
 
 Step 8: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
