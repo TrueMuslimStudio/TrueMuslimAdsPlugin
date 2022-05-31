@@ -97,17 +97,17 @@ Step 8:Load Ads By passing View And AdId.
 
 Banner AdView
 
-	hMainBinding.hBannerContainer,getString(R.string.Admob_BannerId)
+	zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId)
 	    
 Native Advance AdView
 
-	TrueAdManager.zShowNativeAdvanced(hMainBinding.hNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
+	TrueAdManager.zShowNativeAdvanced(hMainBinding.zNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
 	    
 Interstitial Ads:
 
 	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
 	
-Step 8: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
+Step 9: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
 
 	fun zSetBackGroundDrawable(
@@ -127,7 +127,7 @@ are given app's primary color and stroke. To change use method:
 	    }
 	}
 
-Step 9: Layout for Native Banner Ad.
+Step 10: Layout for Native Banner Ad.
 
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
 	 android:id="@+id/zNativeBanner"
@@ -138,7 +138,7 @@ Step 9: Layout for Native Banner Ad.
 	 app:zStrokeWidth="6"
 	 app:zStrokeColor="@color/black"/>
  
- Step 10: To Show you own Holder while ad is loading over NativeAdvanced use following:.
+ Step 11: To Show you own Holder while ad is loading over NativeAdvanced use following:.
  
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeAdvancedView
 		android:id="@+id/zNativeAdvancedBanner"
