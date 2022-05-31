@@ -15,8 +15,6 @@ import timber.log.Timber
 
 class BaseApplication : Application() {
 
-    var TAG = "BaseApplicationCLass"
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate() {
         super.onCreate()
@@ -31,7 +29,6 @@ class BaseApplication : Application() {
         TrueAdManager.zSetInterstitialPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetBannerPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetTimeout(TrueConstants.h3SecTimeOut)
-        Timber.d("Network Is Available: " + TrueConstants.isNetworkAvailable(this) + " And Network Speed Is : " + TrueConstants.isNetworkSpeedHigh())
         if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://suhaatech.com/AdsId/testads.json")
