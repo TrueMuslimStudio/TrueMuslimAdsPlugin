@@ -93,14 +93,20 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 		zWhatAd: TrueWhatAd
 	    ) {
 	    }
-Step 8:Load Ads By passing View And AdId
+Step 8:Load Ads By passing View And AdId.
+
 Banner AdView
+
 	hMainBinding.hBannerContainer,getString(R.string.Admob_BannerId)
 	    
 Native Advance AdView
+
 	TrueAdManager.zShowNativeAdvanced(hMainBinding.hNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
 	    
+Interstitial Ads:
 
+	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
+	
 Step 8: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
 
