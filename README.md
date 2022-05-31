@@ -39,7 +39,7 @@ Step 4. Add the relevant strings in strings file
 	 <string name="admob_interstitial_id">@string/Admob_InterstitialId</string>
  
 Step 5. Initialize the AndroidAdManager in Application class. by passing the Required
-ids and context in the Admanager's constructor.
+context in the Admanager's constructor.
 
 	 TrueAdManager.zInitializeAds(this)
     
