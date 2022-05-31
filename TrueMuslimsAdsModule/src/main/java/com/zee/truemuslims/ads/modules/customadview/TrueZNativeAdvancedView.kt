@@ -49,16 +49,16 @@ class TrueZNativeAdvancedView(
 
             val zCornerRadius = getInt(
                 R.styleable.zAdContainerClStyleable_zCornerRadius,
-                6
+                0
             )
             val zStrokeColor = getColor(
                 R.styleable.zAdContainerClStyleable_zStrokeColor,
-                ContextCompat.getColor(context, R.color.colorPrimaryDark)
+                ContextCompat.getColor(context, R.color.gnt_ad_bg_gray)
             )
 
             val zStrokeWidth = getInt(
                 R.styleable.zAdContainerClStyleable_zStrokeWidth,
-                1
+                2
             )
 
             zSetBackGroundDrawable(

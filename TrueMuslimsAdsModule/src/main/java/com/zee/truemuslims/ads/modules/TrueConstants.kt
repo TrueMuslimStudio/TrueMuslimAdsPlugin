@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.zee.truemuslims.ads.modules.TrueAdManager.context
+import java.lang.Exception
 
 
 object TrueConstants {
@@ -39,7 +40,6 @@ object TrueConstants {
         return false
     }
 
-
     fun isNetworkSpeedHigh(): Boolean {
         var networkSpeed = false
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -51,10 +51,14 @@ object TrueConstants {
         } else {
             TODO("VERSION.SDK_INT < M")
         }
-        val downSpeed = nc!!.linkDownstreamBandwidthKbps
-        val upSpeed = nc.linkUpstreamBandwidthKbps
-        if (downSpeed / 1000 >= 2) {
-            networkSpeed = true
+        try {
+            val downSpeed = nc!!.linkDownstreamBandwidthKbps
+            val upSpeed = nc.linkUpstreamBandwidthKbps
+            if (downSpeed / 1000 >= 2) {
+                networkSpeed = true
+            }
+        } catch (e: Exception) {
+
         }
         return networkSpeed
     }

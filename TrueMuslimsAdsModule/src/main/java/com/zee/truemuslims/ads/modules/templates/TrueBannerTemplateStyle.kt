@@ -16,10 +16,8 @@ class TrueBannerTemplateStyle {
             styles.mainBackgroundColor = mainBackgroundColor
             return this
         }
-
         fun build(): TrueBannerTemplateStyle {
             return styles
         }
-
     }
 }

@@ -13,14 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrueMuslimAdsProject">
         <activity
-            android:name="com.zee.truemuslims.ads.modules.ads.plugin.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:name=".MainActivity"
+            android:exported="false" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />

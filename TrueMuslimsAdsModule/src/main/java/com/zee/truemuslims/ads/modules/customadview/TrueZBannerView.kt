@@ -77,7 +77,6 @@ class TrueZBannerView(
 
     fun zShowHideAdLoader(hShowLoader: Boolean) {
         if (!TrueConstants.isNetworkAvailable(context)) {
-
             zLayoutHAdContainerBinding.zShimmerLoader.visibility = View.GONE
             zLayoutHAdContainerBinding.zAdContainer.visibility = View.GONE
         } else {

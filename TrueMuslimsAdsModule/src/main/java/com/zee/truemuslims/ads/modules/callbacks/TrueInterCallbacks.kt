@@ -4,7 +4,7 @@ import android.app.Activity
 import com.zee.truemuslims.ads.modules.TrueError
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
 
-abstract class TrueInterCallbacks {
+abstract class TrueInterCallbacks() {
 
     open fun zOnAdFailedToLoad(
         zAdType: TrueAdsType,
