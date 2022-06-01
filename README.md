@@ -7,9 +7,7 @@ Shimmer animations while Ads is loaded.
 Banner size is calculated automatically according to varying screen sizes.
 To get a Git project into your build:
 
-Step 1. Add the JitPack repository to your build file
-
-Add it in your root build.gradle at the end of repositories:
+Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
 
 	allprojects {
 		repositories {
@@ -21,7 +19,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.1'
+	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.3'
 	}
 	
 Step 3. Add the (Required) debug and release ids in the project level gradle file like so:
@@ -39,23 +37,9 @@ Step 4. Add the relevant strings in strings file
 	 <string name="admob_interstitial_id">@string/Admob_InterstitialId</string>
  
 Step 5. Initialize the AndroidAdManager in Application class. by passing the Required
-ids and context in the Admanager's constructor.
+context in the Admanager's constructor.
 
-	 val zIdsMap = hashMapOf<AdsType, HashMap<TrueWhatAd, String>>()
-	 val zAdMobMap = hashMapOf<TrueWhatAd, String>()
-
-	 zAdMobMap[TrueWhatAd.Z_NATIVE_ADVANCED] = getString(R.string.admob_native_advanced_id)
-	 zAdMobMap[TrueWhatAd.Z_NATIVE_BANNER] = getString(R.string.admob_native_advanced_id)
-	 zAdMobMap[TrueWhatAd.Z_BANNER] = getString(R.string.admob_banner_id)
-	 zAdMobMap[TrueWhatAd.Z_INTER] = getString(R.string.admob_interstitial_id)
-
-
-	 zIdsMap[TrueAdsType.Z_ADMOB] = zAdMobMap
-
-	 TrueAdManager.zInitializeAds(
-		this,
-		zIdsMap
-	    )
+	 TrueAdManager.zInitializeAds(this)
     
 Step 6. By default all priorities are set to AdmobNone.
 
@@ -74,7 +58,6 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 		zWhatAd: TrueWhatAd,
 	    ) {
 	    }
-
 	    open fun zAdClicked(
 		zAdType: TrueAdsType,
 		zWhatAd: TrueWhatAd
@@ -107,8 +90,21 @@ Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCa
 		zWhatAd: TrueWhatAd
 	    ) {
 	    }
+Step 8:Load Ads By passing View And AdId.
 
-Step 8: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
+Banner AdView
+
+	zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId)
+	    
+Native Advance AdView
+
+	TrueAdManager.zShowNativeAdvanced(hMainBinding.zNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
+	    
+Interstitial Ads:
+
+	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
+	
+Step 9: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
 
 	fun zSetBackGroundDrawable(
@@ -128,7 +124,7 @@ are given app's primary color and stroke. To change use method:
 	    }
 	}
 
-Step 9: Layout for Native Banner Ad.
+Step 10: Layout for Native Banner Ad.
 
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
 	 android:id="@+id/zNativeBanner"
@@ -139,7 +135,7 @@ Step 9: Layout for Native Banner Ad.
 	 app:zStrokeWidth="6"
 	 app:zStrokeColor="@color/black"/>
  
- Step 10: To Show you own Holder while ad is loading over NativeAdvanced use following:.
+ Step 11: To Show you own Holder while ad is loading over NativeAdvanced use following:.
  
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeAdvancedView
 		android:id="@+id/zNativeAdvancedBanner"
