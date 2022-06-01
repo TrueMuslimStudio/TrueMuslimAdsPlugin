@@ -5,7 +5,15 @@ Ui Always stays stable, no displacement.
 By Default some fallback strategies are added for all Ads in case any fails other takes its place.
 Shimmer animations while Ads is loaded.
 Banner size is calculated automatically according to varying screen sizes.
+
+Add InAppUpdate Module in Your App:
+
+ lateinit var trueInAppUpdate = TrueInAppUpdate(this)
+ trueInAppUpdate.getInAppUpdate().
+ 
+
 To get a Git project into your build:
+
 
 Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
 
@@ -19,7 +27,7 @@ Step 1. Add the JitPack repository to your build file , Add it in your root buil
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.3'
+	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.4'
 	}
 	
 Step 3. Add the (Required) debug and release ids in the project level gradle file like so:
