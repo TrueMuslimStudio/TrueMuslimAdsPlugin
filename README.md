@@ -8,8 +8,8 @@ Banner size is calculated automatically according to varying screen sizes.
 
 Add InAppUpdate Module in Your App:
 
- lateinit var trueInAppUpdate = TrueInAppUpdate(this)
- trueInAppUpdate.getInAppUpdate().
+ 	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
+ 	trueInAppUpdate.getInAppUpdate().
  
 
 To get a Git project into your build:
