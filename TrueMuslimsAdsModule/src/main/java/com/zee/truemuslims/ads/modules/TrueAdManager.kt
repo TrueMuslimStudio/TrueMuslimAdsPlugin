@@ -51,6 +51,7 @@ object TrueAdManager {
         interAdId: String,
         interCallbacks: TrueInterCallbacks
     ) {
+
         interstitialAdId = interAdId
         zAdManagerInterCallbacks = interCallbacks
     }

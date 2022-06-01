@@ -4,5 +4,6 @@
     <string name="admob_banner_id">@string/Admob_BannerId</string>
     <string name="admob_native_advanced_id">@string/Admob_NativeAdvancedId</string>
     <string name="admob_interstitial_id">@string/Admob_InterstitialId</string>
+    <string name="admob_open_ad">@string/app_open_ads_id</string>
 
 </resources>

@@ -8,12 +8,15 @@ import com.zee.truemuslims.ads.modules.BuildConfig
 
 import com.zee.truemuslims.ads.modules.TrueAdManager
 import com.zee.truemuslims.ads.modules.TrueConstants
+import com.zee.truemuslims.ads.modules.TrueZAppOpenAd
 
 import com.zee.truemuslims.ads.modules.adlimits.TrueAntiAdLimit
+import com.zee.truemuslims.ads.modules.database.TrueZSPRepository
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType
 import timber.log.Timber
 
 class BaseApplication : Application() {
+    var trueZAppOpenAd: TrueZAppOpenAd? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate() {
@@ -33,6 +36,9 @@ class BaseApplication : Application() {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://suhaatech.com/AdsId/testads.json")
         }
+
+        trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
+
     }
 
 

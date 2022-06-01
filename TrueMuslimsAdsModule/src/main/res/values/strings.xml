@@ -2,9 +2,10 @@
     <string name="app_name">True Muslim AdsApp</string>
     <string name="ad_attribution">Ad</string>
 
-    <string name="ad_loading" >Ad loading</string>
+    <string name="ad_loading">Ad loading</string>
     <string name="loading_ad">Loading Ad</string>
     <string name="ad">Ad</string>
     <string name="todo">TODO</string>
+    <string name="channel_id" translatable="false">Channel ID</string>
 
 </resources>

@@ -26,12 +26,16 @@ android {
             resValue("string", "Admob_BannerId", "ca-app-pub-3940256099942544/6300978111")
             resValue("string", "Admob_NativeAdvancedId", "ca-app-pub-3940256099942544/2247696110")
             resValue("string", "Admob_InterstitialId", "ca-app-pub-3940256099942544/1033173712")
+            /**Open Test Ad Id*/
+            resValue("string", "app_open_ads_id", "ca-app-pub-3940256099942544/3419835294")
         }
         debug {
             resValue("string", "AdMob_AppId", "ca-app-pub-3940256099942544~3347511713")
             resValue("string", "Admob_BannerId", "ca-app-pub-3940256099942544/6300978111")
             resValue("string", "Admob_NativeAdvancedId", "ca-app-pub-3940256099942544/2247696110")
             resValue("string", "Admob_InterstitialId", "ca-app-pub-3940256099942544/1033173712")
+            /**Open Test Ad Id*/
+            resValue("string", "app_open_ads_id", "ca-app-pub-3940256099942544/3419835294")
         }
     }
     compileOptions {

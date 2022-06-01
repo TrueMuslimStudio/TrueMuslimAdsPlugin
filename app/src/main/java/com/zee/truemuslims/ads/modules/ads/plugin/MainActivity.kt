@@ -3,13 +3,13 @@ package com.zee.truemuslims.ads.modules.ads.plugin
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import com.zee.truemuslims.ads.modules.TrueAdManager
 import com.zee.truemuslims.ads.modules.TrueError
 import com.zee.truemuslims.ads.modules.ads.plugin.databinding.ActivityMainBinding
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
+import com.zee.truemuslims.ads.modules.in_app_module.TrueInAppUpdate
 
 
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
@@ -17,8 +17,9 @@ import com.zee.truemuslims.ads.modules.types.TrueWhatAd
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var hMainBinding: ActivityMainBinding
+    private lateinit var zMainBinding: ActivityMainBinding
     var TAG = "MainActivityy"
+    lateinit var trueInAppUpdate: TrueInAppUpdate
     private val hInterCallbacks = object : TrueInterCallbacks() {
         override fun zOnAdFailedToLoad(
             zAdType: TrueAdsType,
@@ -90,8 +91,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(hMainBinding.root)
+        zMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(zMainBinding.root)
         /**Get Call Backs*/
         TrueAdManager.zhSetInterCallbacks(
             resources.getString(R.string.Admob_InterstitialId),
@@ -103,28 +104,34 @@ class MainActivity : AppCompatActivity() {
         )
 
         TrueAdManager.zShowNativeAdvanced(
-            hMainBinding.hNativeAdvancedBanner,
+            zMainBinding.zNativeAdvancedBanner,
             getString(R.string.Admob_NativeAdvancedId)
         )
         TrueAdManager.zShowFlippingNativeBanner(
-            hMainBinding.hNativeFlippingBanner,
+            zMainBinding.zNativeFlippingBanner,
             getString(R.string.Admob_NativeAdvancedId)
         )
         TrueAdManager.zShowSimpleNativeBanner(
-            hMainBinding.hNativeSimpleBanner,
+            zMainBinding.zNativeSimpleBanner,
             getString(R.string.Admob_NativeAdvancedId)
         )
 
         TrueAdManager.zShowBannerWithOutFallback(
-            hMainBinding.hBannerContainer,
+            zMainBinding.zBannerContainer,
             getString(R.string.Admob_BannerId)
         )
 
-        hMainBinding.hShowInter.setOnClickListener {
+        zMainBinding.zShowInter.setOnClickListener {
             TrueAdManager.zShowInterstitial(
                 this,
                 resources.getString(R.string.Admob_InterstitialId)
             )
         }
+        /**Check Update Module*/
+        trueInAppUpdate = TrueInAppUpdate(this)
+        zMainBinding.zCheckUpdate.setOnClickListener {
+            trueInAppUpdate.getInAppUpdate()
+        }
     }
+
 }
