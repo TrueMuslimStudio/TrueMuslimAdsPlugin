@@ -68,8 +68,8 @@ Step 9. By default all priorities are set to AdmobNone.
 
 Step 10. To set the Ads Callback use the following methods in your calling activity, and override the methods.
 
-	TrueAdManager.zSetInterCallbacks(TrueAdsCalBackObject.zInterCallbacks)
-	TrueAdManager.zSetNativeCallbacks(TrueAdsCalBackObject.zNativeCallbacks)
+	TrueAdManager.zSetInterCallbacks(TrueAdsCalBackObject.zInterCalBacks(this).zInterCallbacks)
+	TrueAdManager.zSetNativeCallbacks(TrueAdsCalBackObject.zNativeCalBacks(this).zNativeCallbacks)
 
 Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCallbacks" Abstract classes.
 
