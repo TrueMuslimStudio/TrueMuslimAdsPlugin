@@ -16,6 +16,13 @@ Add Admob App Open Ad in Application Class:
 	var trueZAppOpenAd: TrueZAppOpenAd? = null
 	trueZAppOpenAd = TrueZAppOpenAd(this, "Add App Open Ad Id")
 	
+Get Json File from server and Add it in BaseApplication	:
+
+	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
+            TrueAntiAdLimit.getInstance()
+                .init(this, "https://suhaatech.com/AdsId/testads.json")
+        }
+	
 To get a Git project into your build:
 
 Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
