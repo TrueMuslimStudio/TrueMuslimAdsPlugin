@@ -18,7 +18,7 @@ object TrueAdsCalBackObject {
     var TAG = "MainActivityClass"
 
     @SuppressLint("LogNotTimber")
-    fun hInterCalBacks(context: Activity): TrueInterCallbacks {
+    fun zInterCalBacks(context: Activity): TrueInterCallbacks {
         val hInterCallbacks = object : TrueInterCallbacks() {
             override fun zOnAdFailedToLoad(
                 zAdType: TrueAdsType,
@@ -70,7 +70,7 @@ object TrueAdsCalBackObject {
     }
 
     fun hNativeCalBacks(context: Context): TrueAdCallbacks {
-        val hNativeCallbacks = object : TrueAdCallbacks() {
+        val zNativeCallbacks = object : TrueAdCallbacks() {
 
             override fun zAdLoaded(zAdType: TrueAdsType, zWhatAd: TrueWhatAd) {
                 Timber.d("TrueAdCallbacks hNativeAdvLoaded And AdType is $zAdType and What Add $zWhatAd")
@@ -102,6 +102,6 @@ object TrueAdsCalBackObject {
                 Timber.d("TrueAdCallbacks hNativeAdvOpened And AdType is $zAdType  and What Add $zWhatAd")
             }
         }
-        return hNativeCallbacks
+        return zNativeCallbacks
     }
 }

@@ -25,7 +25,6 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
     Application.ActivityLifecycleCallbacks,
     LifecycleObserver {
     var TAG = "TrueZAppOpenAdClass"
-    var adsValue = false
     private var appOpenAd: AppOpenAd? = null
     private var loadCallback: AppOpenAdLoadCallback? = null
     private var currentActivity: Activity? = null
@@ -44,7 +43,6 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
         if (isAdAvailable()) {
             return
         }
-        adsValue = true
         loadCallback = object : AppOpenAdLoadCallback() {
             /**
              * Called when an app open ad has loaded.
@@ -100,14 +98,13 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
         )
     }
 
-    fun showAdIfAvailable() {
-        if (!isShowingAd && isAdAvailable() /*&& !SPRepository.getOpenAdValue(myApplication)*/) {
+    private fun showAdIfAvailable() {
+        if (!isShowingAd && isAdAvailable()) {
             val fullScreenContentCallback: FullScreenContentCallback =
                 object : FullScreenContentCallback() {
                     override fun onAdDismissedFullScreenContent() {
                         appOpenAd = null
                         isShowingAd = false
-                        /* adsValue = false*/
                         fetchAd()
                     }
 
@@ -166,7 +163,7 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
         ) && wasLoadTimeLessThanNHoursAgo(4)
     }
 
-    /** Utility method to check if ad was loaded more than n hours ago.  */
+    /** Utility method to check if ad was loaded more than 4 hours ago.  */
     private fun wasLoadTimeLessThanNHoursAgo(numHours: Long): Boolean {
         val dateDifference = Date().time - loadTime
         val numMilliSecondsPerHour: Long = 3600000

@@ -39,7 +39,6 @@ class BaseApplication : Application() {
         trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
     }
 
-
     private fun zTintTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(object : Timber.DebugTree() {
