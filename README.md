@@ -11,9 +11,12 @@ Add InAppUpdate Module in Your App:
  	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
  	trueInAppUpdate.getInAppUpdate().
  
+Add Admob App Open Ad:
 
+	var trueZAppOpenAd: TrueZAppOpenAd? = null
+	trueZAppOpenAd = TrueZAppOpenAd(this, "Add App Open Ad Id")
+	
 To get a Git project into your build:
-
 
 Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
 
