@@ -6,26 +6,7 @@ By Default some fallback strategies are added for all Ads in case any fails othe
 Shimmer animations while Ads is loaded.
 Banner size is calculated automatically according to varying screen sizes.
 
-Step 1. Add InAppUpdate Module in Main Activity:
-
- 	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
- 	trueInAppUpdate.getInAppUpdate().
- 
-Step 2. Add Admob App Open Ad in Application Class:
-
-	var trueZAppOpenAd: TrueZAppOpenAd? = null
-	trueZAppOpenAd = TrueZAppOpenAd(this, "Add App Open Ad Id")
-	
-Step 3. Get Json File from server and Add it in BaseApplication	:
-
-	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
-            TrueAntiAdLimit.getInstance()
-                .init(this, "https://suhaatech.com/AdsId/testads.json")
-        }
-	
-To get a Git project into your build:
-
-Step 4. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
+Step 1. Add the JitPack repository to your build file , Add it in your root build.gradle at the end of repositories:
 
 	allprojects {
 		repositories {
@@ -34,11 +15,32 @@ Step 4. Add the JitPack repository to your build file , Add it in your root buil
 		}
 	}
 	
-Step 5. Add the dependency
+Step 2. Add the dependency
 
 	dependencies {
 	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.5'
 	}
+	
+	
+Step 3. Add InAppUpdate Module in Main Activity:
+
+ 	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
+ 	trueInAppUpdate.getInAppUpdate().
+ 
+Step 4. Add Admob App Open Ad in Application Class:
+
+	var trueZAppOpenAd: TrueZAppOpenAd? = null
+	trueZAppOpenAd = TrueZAppOpenAd(this, "Add App Open Ad Id")
+	
+Step 5. Get Json File from server and Add it in BaseApplication	:
+
+	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
+            TrueAntiAdLimit.getInstance()
+                .init(this, "https://suhaatech.com/AdsId/testads.json")
+        }
+	
+To get a Git project into your build:
+
 	
 Step 6. Add the (Required) debug and release ids in the project level gradle file like so:
 
