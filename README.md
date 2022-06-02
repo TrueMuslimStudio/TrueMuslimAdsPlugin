@@ -6,7 +6,7 @@ By Default some fallback strategies are added for all Ads in case any fails othe
 Shimmer animations while Ads is loaded.
 Banner size is calculated automatically according to varying screen sizes.
 
-Add InAppUpdate Module in Your App:
+Add InAppUpdate Module in Main Activity:
 
  	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
  	trueInAppUpdate.getInAppUpdate().
