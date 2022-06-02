@@ -3,7 +3,6 @@ package com.zee.truemuslims.ads.modules
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
@@ -16,7 +15,6 @@ import com.zee.truemuslims.ads.modules.fallbackstrategies.TrueAdMobFallbackTrueS
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType
 import com.zee.truemuslims.ads.modules.types.TrueAdPriorityType.*
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
-import com.zee.truemuslims.ads.modules.types.TrueAdsType.*
 import com.zee.truemuslims.ads.modules.types.TrueWhatAd
 
 @SuppressLint("StaticFieldLeak")
@@ -160,7 +158,7 @@ object TrueAdManager {
     ) {
         if (TrueConstants.isNetworkSpeedHigh()) {
             when (zPriorityType) {
-                Z_AD_MOB -> zAdMobManager?.zShowNativeBannerFlipping(
+                Z_AD_MOB -> zAdMobManager?.zLoadNativeBannerFlipping(
                     zNativeBannerFlippingView, nativeAdvanceAdId
                 )
 

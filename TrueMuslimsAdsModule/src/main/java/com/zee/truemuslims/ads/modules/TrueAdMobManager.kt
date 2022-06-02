@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -47,6 +48,7 @@ class TrueAdMobManager(
     private var prefNameInter: String? = null
     private var prefNameNative: String? = null
     private var prefNameNativeBanner: String? = null
+
     var TAG = "TrueAdMobClass"
     lateinit var dialog: Dialog
 
@@ -155,7 +157,7 @@ class TrueAdMobManager(
     }
 
     @SuppressLint("BinaryOperationInTimber")
-    fun zShowNativeBannerFlipping(
+    fun zLoadNativeBannerFlipping(
         zNativeBannerFlippingView: TrueZNativeBannerFlippingView,
         nativeAdvancedId: String,
         zIsWithFallback: Boolean = true
@@ -673,6 +675,7 @@ class TrueAdMobManager(
             }
         }
     }
+
     /**Adaptive Banner Size*/
     @Suppress("DEPRECATION")
     private val adaptiveBannerAdSize: AdSize
