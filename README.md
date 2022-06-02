@@ -11,7 +11,7 @@ Add InAppUpdate Module in Your App:
  	lateinit var trueInAppUpdate = TrueInAppUpdate(this)
  	trueInAppUpdate.getInAppUpdate().
  
-Add Admob App Open Ad:
+Add Admob App Open Ad in Application Class:
 
 	var trueZAppOpenAd: TrueZAppOpenAd? = null
 	trueZAppOpenAd = TrueZAppOpenAd(this, "Add App Open Ad Id")
