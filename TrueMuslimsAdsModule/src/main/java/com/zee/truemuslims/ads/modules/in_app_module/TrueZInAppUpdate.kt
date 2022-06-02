@@ -13,7 +13,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import timber.log.Timber
 
 
-class TrueInAppUpdate(private var activity: Activity) {
+class TrueZInAppUpdate(private var activity: Activity) {
     private val updateManager: AppUpdateManager = AppUpdateManagerFactory.create(activity)
     private val updateCode = 123
     fun getInAppUpdate() {

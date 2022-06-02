@@ -36,9 +36,7 @@ class BaseApplication : Application() {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://suhaatech.com/AdsId/testads.json")
         }
-
         trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
-
     }
 
 
@@ -51,10 +49,9 @@ class BaseApplication : Application() {
                     message: String,
                     t: Throwable?
                 ) {
-                    super.log(priority, String.format("HashimTimberTags %s", tag), message, t)
+                    super.log(priority, String.format("ZeeshanTimberTags %s", tag), message, t)
                 }
             })
         }
     }
-
 }

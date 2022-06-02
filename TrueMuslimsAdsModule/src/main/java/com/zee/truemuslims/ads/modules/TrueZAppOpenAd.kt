@@ -18,6 +18,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.zee.truemuslims.ads.modules.database.TrueZSPRepository
+import timber.log.Timber
 import java.util.*
 
 class TrueZAppOpenAd(private val myApplication: Application, var openAdId: String) :
@@ -83,7 +84,7 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
              */
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 // Handle the error.
-                Log.d(TAG, "OnAdFailedToLoad: ${TrueZSPRepository.getOpenAdValue(myApplication)}")
+                Timber.d("OnAdFailedToLoad: " + TrueZSPRepository.getOpenAdValue(myApplication))
 
             }
         }

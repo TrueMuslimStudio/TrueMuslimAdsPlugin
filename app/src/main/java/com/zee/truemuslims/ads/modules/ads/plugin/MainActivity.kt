@@ -9,7 +9,8 @@ import com.zee.truemuslims.ads.modules.TrueError
 import com.zee.truemuslims.ads.modules.ads.plugin.databinding.ActivityMainBinding
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
-import com.zee.truemuslims.ads.modules.in_app_module.TrueInAppUpdate
+import com.zee.truemuslims.ads.modules.in_app_module.TrueZInAppUpdate
+import com.zee.truemuslims.ads.modules.in_app_module.TrueZInAppReview
 
 
 import com.zee.truemuslims.ads.modules.types.TrueAdsType
@@ -19,7 +20,8 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
     private lateinit var zMainBinding: ActivityMainBinding
     var TAG = "MainActivityy"
-    lateinit var trueInAppUpdate: TrueInAppUpdate
+    lateinit var trueZInAppUpdate: TrueZInAppUpdate
+    lateinit var trueInAppReview: TrueZInAppReview
     private val hInterCallbacks = object : TrueInterCallbacks() {
         override fun zOnAdFailedToLoad(
             zAdType: TrueAdsType,
@@ -128,10 +130,12 @@ class MainActivity : AppCompatActivity() {
             )
         }
         /**Check Update Module*/
-        trueInAppUpdate = TrueInAppUpdate(this)
+        trueZInAppUpdate = TrueZInAppUpdate(this)
         zMainBinding.zCheckUpdate.setOnClickListener {
-            trueInAppUpdate.getInAppUpdate()
+            trueZInAppUpdate.getInAppUpdate()
         }
+        trueInAppReview = TrueZInAppReview(this)
+        trueInAppReview.zShowRatingDialogue()
     }
 
 }
