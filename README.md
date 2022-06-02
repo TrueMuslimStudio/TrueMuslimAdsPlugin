@@ -36,12 +36,11 @@ Step 5. Get Json File from server and Add it in BaseApplication	:
 
 	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
             TrueAntiAdLimit.getInstance()
-                .init(this, "https://suhaatech.com/AdsId/testads.json")
+                .init(this, "https://example.json")
         }
 	
 To get a Git project into your build:
 
-	
 Step 6. Add the (Required) debug and release ids in the project level gradle file like so:
 
 	resValue 'string', 'AdMob_AppId', '"ca-app-pub-3940256099942544~3347511713"'
