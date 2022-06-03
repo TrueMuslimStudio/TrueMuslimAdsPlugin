@@ -24,7 +24,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
                 <com.google.android.gms.ads.nativead.MediaView
                     android:id="@+id/media_view"
                     android:layout_width="match_parent"
@@ -34,6 +36,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                </ScrollView>
             </LinearLayout>
 
             <LinearLayout
@@ -110,6 +113,7 @@
                                     android:layout_marginBottom="@dimen/gnt_no_margin"
                                     android:gravity="center_vertical"
                                     android:lines="1"
+                                    android:textColor="@color/gnt_black"
                                     android:textSize="@dimen/gnt_text_size_large"
                                     android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -140,6 +144,7 @@
                                 android:layout_marginEnd="@dimen/_5dp"
                                 android:gravity="top"
                                 android:lines="1"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/gnt_text_size_small"
                                 app:layout_constraintBottom_toBottomOf="@+id/ad_notification_view"
                                 app:layout_constraintEnd_toEndOf="parent"

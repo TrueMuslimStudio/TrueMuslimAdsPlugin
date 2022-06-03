@@ -88,7 +88,6 @@
                                 android:layout_marginTop="@dimen/gnt_no_margin"
                                 android:layout_marginEnd="@dimen/gnt_no_margin"
                                 android:layout_marginBottom="@dimen/gnt_no_margin"
-                                android:background="#0C000000"
                                 android:lines="1"
                                 android:textColor="@color/gnt_black"
                                 android:textSize="@dimen/gnt_text_size_large"
@@ -137,7 +136,6 @@
                                 android:layout_marginTop="@dimen/gnt_no_margin"
                                 android:layout_marginEnd="@dimen/gnt_no_margin"
                                 android:layout_marginBottom="@dimen/gnt_no_margin"
-                                android:background="#0D000000"
                                 android:gravity="top"
                                 android:lines="1"
                                 android:textColor="@color/gnt_black"
@@ -169,7 +167,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/middle" />
-
 
             <Button
                 android:id="@+id/cta"

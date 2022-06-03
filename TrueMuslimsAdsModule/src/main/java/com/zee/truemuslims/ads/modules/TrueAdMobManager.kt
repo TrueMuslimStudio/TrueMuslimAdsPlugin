@@ -56,7 +56,7 @@ class TrueAdMobManager(
     fun zLoadInterstitialAd(
         context: Activity,
         interId: String
-    ) {
+    )  {
         dialog = Dialog(context)
         loadAds(context)
         if (interId.contains("/")) {

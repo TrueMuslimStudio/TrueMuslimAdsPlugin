@@ -18,7 +18,7 @@
             android:id="@+id/pbLoading"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="55dp"
+            android:layout_marginStart="100dp"
             android:indeterminateTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

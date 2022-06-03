@@ -12,14 +12,17 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.zee.truemuslims.ads.modules.R
+
 
 class TrueTemplateView : FrameLayout {
     private var templateType = 0
@@ -205,7 +208,9 @@ class TrueTemplateView : FrameLayout {
         nativeAdView!!.setNativeAd(nativeAd)
         if (adsValue) {
             setFlipping()
+            scrollMediaView(mediaView!!)
         }
+
     }
 
     /**
@@ -267,15 +272,15 @@ class TrueTemplateView : FrameLayout {
                 if (i % 2 == 0) {
                     flipCard(context, adsL2!!, adsL1!!)
                     i++
-                    handler.postDelayed(this, 4000)
+                    handler.postDelayed(this, 6000)
                 } else {
                     flipCard(context, adsL1!!, adsL2!!)
                     i++
-                    handler.postDelayed(this, 5000)
+                    handler.postDelayed(this, 8000)
                 }
             }
         }
-        handler.postDelayed(runnable, 5000)
+        handler.postDelayed(runnable, 8000)
     }
 
     fun flipCard(context: Context, visibleView: View, inVisibleView: View) {
@@ -315,5 +320,25 @@ class TrueTemplateView : FrameLayout {
         } catch (e: Exception) {
             Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun scrollMediaView(mediaView: MediaView) {
+        val mediaViewAnimation: Animation
+        mediaViewAnimation = TranslateAnimation(
+            TranslateAnimation.ABSOLUTE,
+            0f,
+            TranslateAnimation.ABSOLUTE,
+            0f,
+            TranslateAnimation.ABSOLUTE,
+            0f,
+            TranslateAnimation.ABSOLUTE,
+            -100f
+        )
+        mediaViewAnimation.setDuration(4000)
+        mediaViewAnimation.setRepeatCount(-1)
+        mediaViewAnimation.setRepeatMode(Animation.REVERSE) // REVERSE
+
+        mediaViewAnimation.setInterpolator(LinearInterpolator())
+        mediaView.startAnimation(mediaViewAnimation)
     }
 }
