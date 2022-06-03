@@ -60,10 +60,10 @@ context in the Admanager's constructor.
 
 	 TrueAdManager.zInitializeAds(this)
     
-Step 9. By default all priorities are set to AdmobNone.
+Step 9. By default all priorities are set to Admob.
 
-	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.Z_MOP_UP)
-	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.Z_MOP_UP) 
+	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.AD_MOB)
+	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.AD_MOB) 
 
 Step 10. To set the Ads Callback use the following methods in your calling activity, and override the methods.
 
