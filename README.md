@@ -18,7 +18,7 @@ Step 1. Add the JitPack repository to your build file , Add it in your root buil
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.5'
+	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.0.6'
 	}
 	
 	
