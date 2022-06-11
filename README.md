@@ -131,6 +131,6 @@ Step 13: Layout for Native Banner Ad.
 		android:layout_height="wrap_content"
 		app:zLoaderContainer="@layout/native_advanced_alternative"/>
 		
- Step 15: Add Service Class in Manifest File.
+ Step 15: Add Service Class in Manifest.
 
 	<service android:name="com.zee.truemuslims.ads.modules.adlimits.TrueJSONPullService" />
