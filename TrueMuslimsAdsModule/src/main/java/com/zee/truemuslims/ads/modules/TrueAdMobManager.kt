@@ -993,10 +993,12 @@ class TrueAdMobManager(
         context: Context,
         nativeAdvancedId: String,
     ) {
+        Toast.makeText(context, "Native Advance Ad Id $nativeAdvancedId", Toast.LENGTH_SHORT).show()
         if (nativeAdvancedId.contains("/")) {
             prefNameSimpleNativeInAdvanced =
                 nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
         }
+        Toast.makeText(context, "Native Advance Ad Id $prefNameSimpleNativeInAdvanced", Toast.LENGTH_SHORT).show()
         val builder = AdLoader.Builder(
             context, nativeAdvancedId
         )
