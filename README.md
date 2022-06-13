@@ -18,7 +18,7 @@ Step 1. Add the JitPack repository to your build file , Add it in your root buil
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsProject:1.0.5'
+	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.0.6'
 	}
 	
 	
@@ -62,53 +62,22 @@ context in the Admanager's constructor.
     
 Step 9. By default all priorities are set to Admob.
 
-	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.AD_MOB)
-	TrueAdManager.zSetNativeBannerPriority(TrueAdPriorityType.AD_MOB) 
+	TrueAdManager.zSetNativeAdvancedPriority(TrueAdPriorityType.Z_AD_MOB)
+        TrueAdManager.zSetBannerPriority(TrueAdPriorityType.Z_AD_MOB)
+        TrueAdManager.zSetNativeBannerPriorityFlipping(TrueAdPriorityType.Z_AD_MOB)
+        TrueAdManager.zSetNativeBannerPrioritySimple(TrueAdPriorityType.Z_AD_MOB) 
 
-Step 10. To set the Ads Callback use the following methods in your calling activity, and override the methods.
+Step 10. To set the Ads Callback use the following methods in your calling activity.
 
-	TrueAdManager.zSetInterCallbacks(TrueAdsCalBackObject.zInterCalBacks(this).zInterCallbacks)
-	TrueAdManager.zSetNativeCallbacks(TrueAdsCalBackObject.zNativeCalBacks(this).zNativeCallbacks)
+	  TrueAdManager.zhSetInterCallbacks(
+            "Interstitial Ad",
+            TrueAdsCalBackObject.zInterCalBacks(this)
+        )
+        TrueAdManager.zSetNativeCallbacks(
+           "Native Ad Id",
+            TrueAdsCalBackObject.zNativeCalBacks(this)
+        )
 
-Callbacks for these adevents are available in "TrueAdCallbacks" and "TrueInterCallbacks" Abstract classes.
-
-	open fun zAdLoaded(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd,
-	    ) {
-	    }
-	    open fun zAdClicked(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd
-	    ) {
-	    }
-
-	    open fun zAdImpression(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd
-	    ) {
-	    }
-
-	    open fun zAdClosed(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd
-	    ) {
-	    }
-
-	    open fun zAdFailedToLoad(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd,
-		zError: TrueError,
-		zNativeView: ViewGroup,
-		zIsWithFallback: Boolean
-	    ) {
-	    }
-
-	    open fun zNativeAdOpened(
-		zAdType: TrueAdsType,
-		zWhatAd: TrueWhatAd
-	    ) {
-	    }
 Step 11:Load Ads By passing View And AdId.
 
 Banner AdView
@@ -161,3 +130,7 @@ Step 13: Layout for Native Banner Ad.
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:zLoaderContainer="@layout/native_advanced_alternative"/>
+		
+ Step 15: Add Service Class in Manifest.
+
+	<service android:name="com.zee.truemuslims.ads.modules.adlimits.TrueJSONPullService" />
