@@ -19,7 +19,7 @@ object TrueAdsCalBackObject {
 
     @SuppressLint("LogNotTimber")
     fun zInterCalBacks(context: Activity): TrueInterCallbacks {
-        val hInterCallbacks = object : TrueInterCallbacks() {
+        val zInterCallbacks = object : TrueInterCallbacks() {
             override fun zOnAdFailedToLoad(
                 zAdType: TrueAdsType,
                 zError: TrueError,
@@ -52,12 +52,13 @@ object TrueAdsCalBackObject {
             }
 
             override fun zOnAddDismissed(zAdType: TrueAdsType) {
+                TrueZSPRepository.saveInterAdValue(
+                    context,
+                    0
+                )
                 Log.d(TAG, "hOnAddDismissed: " + zAdType.name)
                 interstitialAdnValue = false
                 Timber.d("InterCallbacks hOnAddDismissed And AdType is $zAdType")
-                /*if (SPRepository.getAdInterCountValue(context) >= 5) {
-                    RemoveAdsDialogueObject.removeAdsDialogue(context)
-                }*/
             }
 
             override fun zOnAdTimedOut(zAdType: TrueAdsType) {
@@ -66,10 +67,10 @@ object TrueAdsCalBackObject {
                 Timber.d("InterCallbacks hOnAdTimedOut And AdType is $zAdType")
             }
         }
-        return hInterCallbacks
+        return zInterCallbacks
     }
 
-    fun hNativeCalBacks(context: Context): TrueAdCallbacks {
+    fun zNativeCalBacks(context: Context): TrueAdCallbacks {
         val zNativeCallbacks = object : TrueAdCallbacks() {
 
             override fun zAdLoaded(zAdType: TrueAdsType, zWhatAd: TrueWhatAd) {

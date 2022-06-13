@@ -1,6 +1,7 @@
 package com.zee.truemuslims.ads.modules
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -61,5 +62,23 @@ object TrueConstants {
 
         }
         return networkSpeed
+    }
+
+    fun isAppInstalledFromPlay(mContext: Context): Boolean {
+        return if (BuildConfig.DEBUG) true else {
+            try {
+                val applicationInfo = mContext.packageManager.getApplicationInfo(
+                    mContext.applicationInfo.packageName,
+                    0
+                )
+                "com.android.vending" == mContext.packageManager.getInstallerPackageName(
+                    applicationInfo.packageName
+                )
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+                false
+            }
+
+        }
     }
 }

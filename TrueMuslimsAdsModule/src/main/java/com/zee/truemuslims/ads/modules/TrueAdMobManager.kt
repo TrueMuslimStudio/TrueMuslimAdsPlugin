@@ -10,16 +10,18 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.zee.truemuslims.ads.modules.adlimits.TrueAdLimitUtils
 import com.zee.truemuslims.ads.modules.adlimits.TruePrefUtils
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.zee.truemuslims.ads.modules.TrueConstants.isAppInstalledFromPlay
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
 import com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
@@ -47,16 +49,38 @@ class TrueAdMobManager(
     private var prefName: String? = null
     private var prefNameInter: String? = null
     private var prefNameNative: String? = null
+    private var prefNameNativeInAdvanced: String? = null
+    private var prefNameFlippingNativeInAdvanced: String? = null
+    private var prefNameSimpleNativeInAdvanced: String? = null
     private var prefNameNativeBanner: String? = null
 
     var TAG = "TrueAdMobClass"
     lateinit var dialog: Dialog
 
+    @Suppress("DEPRECATION")
+    companion object {
+        var mAdmobNative: NativeAd? = null
+        var mFlippingAdmobNative: NativeAd? = null
+        var mSimpleAdmobNative: NativeAd? = null
+        var admobNativeAdLoader: AdLoader? = null
+        var mSimpleAdmobNativeAdLoader: AdLoader? = null
+        var mFlippingAdmobNativeAdLoader: AdLoader? = null
+
+        fun zGetPixelFromDp(application: Context?, dp: Int): Int {
+            val display =
+                (application!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+            val scale = outMetrics.density
+            return (dp * scale + 0.5f).toInt()
+        }
+    }
+
     @SuppressLint("BinaryOperationInTimber")
     fun zLoadInterstitialAd(
         context: Activity,
         interId: String
-    )  {
+    ) {
         dialog = Dialog(context)
         loadAds(context)
         if (interId.contains("/")) {
@@ -530,6 +554,7 @@ class TrueAdMobManager(
         adContainerView!!.addView(valueTV)
     }
 
+
     @SuppressLint("BinaryOperationInTimber")
     fun zShowNativeAdvanced(
         context: Context,
@@ -563,7 +588,8 @@ class TrueAdMobManager(
                         zNativeAdvancedView.zShowAdView(viewGroup = root)
                     }
 
-                }.withAdListener(object : AdListener() {
+                }
+                .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
                         zNativeAdvancedView.zShowHideAdLoader(true)
@@ -656,17 +682,6 @@ class TrueAdMobManager(
         zAdCallbacks = adCallbacks
     }
 
-    @Suppress("DEPRECATION")
-    companion object {
-        fun zGetPixelFromDp(application: Context?, dp: Int): Int {
-            val display =
-                (application!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            val outMetrics = DisplayMetrics()
-            display.getMetrics(outMetrics)
-            val scale = outMetrics.density
-            return (dp * scale + 0.5f).toInt()
-        }
-    }
 
     init {
         zContext?.let { context ->
@@ -707,6 +722,407 @@ class TrueAdMobManager(
         )
         loadAdsLayoutBinding.tvMessage.text =
             TrueAdManager.context.resources.getString(R.string.loading_ad)
+    }
+
+    /**Load And Show Native In Advance*/
+    fun loadAdmobNativeInAdvance(
+        context: Context,
+        nativeAdvancedId: String,
+    ) {
+        if (nativeAdvancedId.contains("/")) {
+            prefNameNativeInAdvanced =
+                nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
+        }
+        val builder = AdLoader.Builder(
+            context, nativeAdvancedId
+        )
+        builder.forNativeAd { nativeAd ->
+            if (mAdmobNative != null) {
+                mAdmobNative!!.destroy()
+            }
+            mAdmobNative = nativeAd
+        }
+
+        val videoOptions = VideoOptions.Builder()
+            .setStartMuted(true)
+            .build()
+        val adOptions: NativeAdOptions = NativeAdOptions.Builder()
+            .setVideoOptions(videoOptions)
+            .build()
+        builder.withNativeAdOptions(adOptions)
+        admobNativeAdLoader = builder.withAdListener(object : AdListener() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+            }
+
+            override fun onAdClosed() {
+                super.onAdClosed()
+                zAdCallbacks?.zAdClosed(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdOpened() {
+                super.onAdOpened()
+                zAdCallbacks?.zNativeAdOpened(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                zAdCallbacks?.zAdLoaded(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                TruePrefUtils.getInstance().init(context, prefNameNative)
+                    .zUpdateImpressionCounter()
+            }
+
+            override fun onAdClicked() {
+                super.onAdClicked()
+                zAdCallbacks?.zAdClicked(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                TruePrefUtils.getInstance().init(context, prefNameNative)
+                    .zUpdateClicksCounter()
+            }
+
+            override fun onAdImpression() {
+                super.onAdImpression()
+                zAdCallbacks?.zAdImpression(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+        }).build()
+        if (isAppInstalledFromPlay(context)) {
+            if (!TrueAdLimitUtils.isBanned(
+                    context,
+                    prefNameNativeInAdvanced,
+                    "Native Ad In Advance"
+                )
+            ) {
+                /** It will be executed when its true*/
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        admobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                    }, TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
+                )
+            }
+        }
+    }
+
+    private fun inflateAdNativeAdInAdvance(
+        context: Activity,
+        nativeAd: NativeAd,
+        zNativeAdvancedView: TrueZNativeAdvancedView
+    ) {
+        val cd = ColorDrawable()
+        val styles =
+            TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
+        AdmobNativeAdvancedLayoutBinding.inflate(
+            LayoutInflater.from(context),
+            null,
+            false
+        ).apply {
+            myTemplate.visibility = View.VISIBLE
+            myTemplate.setStyles(styles)
+            nativeAd.let {
+                myTemplate.setNativeAd(it, false)
+            }
+            zNativeAdvancedView.zShowAdView(viewGroup = root)
+        }
+    }
+
+    fun showAdmobNativeInAdvance(
+        context: Activity,
+        nativeAdId: String,
+        zNativeAdvancedView: TrueZNativeAdvancedView,
+    ) {
+        if (isAppInstalledFromPlay(context)) {
+            if (admobNativeAdLoader != null && !admobNativeAdLoader!!.isLoading) {
+                if (mAdmobNative != null) {
+                    inflateAdNativeAdInAdvance(context, mAdmobNative!!, zNativeAdvancedView)
+                }
+            } else {
+                loadAdmobNativeInAdvance(context, nativeAdId)
+            }
+        }
+    }
+
+    /**Load And Show Flipping Native In Advance*/
+    fun loadAdmobFlippingNativeInAdvance(
+        context: Context,
+        nativeAdvancedId: String,
+    ) {
+        if (nativeAdvancedId.contains("/")) {
+            prefNameFlippingNativeInAdvanced =
+                nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
+        }
+        val builder = AdLoader.Builder(
+            context, nativeAdvancedId
+        )
+        builder.forNativeAd { nativeAd ->
+            if (mFlippingAdmobNative != null) {
+                mFlippingAdmobNative!!.destroy()
+            }
+            mFlippingAdmobNative = nativeAd
+        }
+
+        val videoOptions = VideoOptions.Builder()
+            .setStartMuted(true)
+            .build()
+        val adOptions: NativeAdOptions = NativeAdOptions.Builder()
+            .setVideoOptions(videoOptions)
+            .build()
+        builder.withNativeAdOptions(adOptions)
+        mFlippingAdmobNativeAdLoader = builder.withAdListener(object : AdListener() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+            }
+
+            override fun onAdClosed() {
+                super.onAdClosed()
+                zAdCallbacks?.zAdClosed(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdOpened() {
+                super.onAdOpened()
+                zAdCallbacks?.zNativeAdOpened(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                zAdCallbacks?.zAdLoaded(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                TruePrefUtils.getInstance().init(context, prefNameFlippingNativeInAdvanced)
+                    .zUpdateImpressionCounter()
+            }
+
+            override fun onAdClicked() {
+                super.onAdClicked()
+                zAdCallbacks?.zAdClicked(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                TruePrefUtils.getInstance().init(context, prefNameFlippingNativeInAdvanced)
+                    .zUpdateClicksCounter()
+            }
+
+            override fun onAdImpression() {
+                super.onAdImpression()
+                zAdCallbacks?.zAdImpression(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+        }).build()
+        if (isAppInstalledFromPlay(context)) {
+            if (!TrueAdLimitUtils.isBanned(
+                    context,
+                    prefNameFlippingNativeInAdvanced,
+                    "Native Ad In Advance"
+                )
+            ) {
+                /** It will be executed when its true*/
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        mFlippingAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                    },
+                    TruePrefUtils.getInstance()
+                        .init(context, prefNameFlippingNativeInAdvanced).delayMs
+                )
+            }
+        }
+    }
+
+    private fun inflateFlippingNativeAdInAdvance(
+        nativeAd: NativeAd,
+        trueZNativeBannerSimpleView: TrueZNativeBannerFlippingView
+    ) {
+        val cd = ColorDrawable()
+        val styles =
+            TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
+        AdmobNativeBannerLayoutBinding.inflate(
+            LayoutInflater.from(zContext),
+            null,
+            false
+        ).apply {
+            myTemplate.visibility = View.VISIBLE
+            myTemplate.setStyles(styles)
+            nativeAd.let {
+                myTemplate.setNativeAd(it, true)
+            }
+            trueZNativeBannerSimpleView.zShowAdView(viewGroup = root)
+        }
+    }
+
+    fun showAdmobFlippingNativeInAdvance(
+        context: Activity,
+        nativeAdId: String,
+        trueZNativeBannerSimpleView: TrueZNativeBannerFlippingView,
+    ) {
+        if (isAppInstalledFromPlay(context)) {
+            if (mFlippingAdmobNativeAdLoader != null && !mFlippingAdmobNativeAdLoader!!.isLoading) {
+                if (mFlippingAdmobNative != null) {
+                    inflateFlippingNativeAdInAdvance(
+                        mFlippingAdmobNative!!,
+                        trueZNativeBannerSimpleView
+                    )
+                }
+            } else {
+                loadAdmobFlippingNativeInAdvance(context, nativeAdId)
+            }
+        }
+    }
+
+    /**Load And Show Simple Native In Advance*/
+    fun loadAdmobSimpleNativeInAdvance(
+        context: Context,
+        nativeAdvancedId: String,
+    ) {
+        if (nativeAdvancedId.contains("/")) {
+            prefNameSimpleNativeInAdvanced =
+                nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
+        }
+        val builder = AdLoader.Builder(
+            context, nativeAdvancedId
+        )
+        builder.forNativeAd { nativeAd ->
+            if (mSimpleAdmobNative != null) {
+                mSimpleAdmobNative!!.destroy()
+            }
+            mSimpleAdmobNative = nativeAd
+        }
+
+        val videoOptions = VideoOptions.Builder()
+            .setStartMuted(true)
+            .build()
+        val adOptions: NativeAdOptions = NativeAdOptions.Builder()
+            .setVideoOptions(videoOptions)
+            .build()
+        builder.withNativeAdOptions(adOptions)
+        mSimpleAdmobNativeAdLoader = builder.withAdListener(object : AdListener() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                super.onAdFailedToLoad(loadAdError)
+            }
+
+            override fun onAdClosed() {
+                super.onAdClosed()
+                zAdCallbacks?.zAdClosed(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdOpened() {
+                super.onAdOpened()
+                zAdCallbacks?.zNativeAdOpened(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                zAdCallbacks?.zAdLoaded(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                Toast.makeText(context, "Loaded...", Toast.LENGTH_SHORT).show()
+                TruePrefUtils.getInstance().init(context, prefNameSimpleNativeInAdvanced)
+                    .zUpdateImpressionCounter()
+            }
+
+            override fun onAdClicked() {
+                super.onAdClicked()
+                zAdCallbacks?.zAdClicked(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+                TruePrefUtils.getInstance().init(context, prefNameSimpleNativeInAdvanced)
+                    .zUpdateClicksCounter()
+            }
+
+            override fun onAdImpression() {
+                super.onAdImpression()
+                zAdCallbacks?.zAdImpression(
+                    zAdType = TrueAdsType.Z_ADMOB,
+                    zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
+                )
+            }
+        }).build()
+        if (isAppInstalledFromPlay(context)) {
+            if (!TrueAdLimitUtils.isBanned(
+                    context,
+                    prefNameSimpleNativeInAdvanced,
+                    "Native Ad In Advance"
+                )
+            ) {
+                /** It will be executed when its true*/
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                    },
+                    TruePrefUtils.getInstance()
+                        .init(context, prefNameSimpleNativeInAdvanced).delayMs
+                )
+            }
+        }
+    }
+
+    private fun inflateSimpleNativeAdInAdvance(
+        nativeAd: NativeAd,
+        trueZNativeBannerSimpleView: TrueZNativeBannerSimpleView
+    ) {
+        val cd = ColorDrawable()
+        val styles =
+            TrueNativeTemplateStyle.Builder().withMainBackgroundColor(cd).build()
+        AdmobNativeBannerLayoutSimpleBinding.inflate(
+            LayoutInflater.from(zContext),
+            null,
+            false
+        ).apply {
+            myTemplate.visibility = View.VISIBLE
+            myTemplate.setStyles(styles)
+            nativeAd.let {
+                myTemplate.setNativeAd(it, false)
+            }
+            trueZNativeBannerSimpleView.zShowAdView(viewGroup = root)
+        }
+    }
+
+    fun showAdmobSimpleNativeInAdvance(
+        context: Activity,
+        nativeAdId: String,
+        trueZNativeBannerSimpleView: TrueZNativeBannerSimpleView,
+    ) {
+        if (isAppInstalledFromPlay(context)) {
+            if (mSimpleAdmobNativeAdLoader != null && !mSimpleAdmobNativeAdLoader!!.isLoading) {
+                if (mSimpleAdmobNative != null) {
+                    inflateSimpleNativeAdInAdvance(
+                        mSimpleAdmobNative!!,
+                        trueZNativeBannerSimpleView
+                    )
+                    Toast.makeText(context, "Show ", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                loadAdmobSimpleNativeInAdvance(context, nativeAdId)
+                Toast.makeText(context, "request To Load", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }

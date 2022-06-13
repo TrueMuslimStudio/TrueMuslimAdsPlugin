@@ -8,6 +8,7 @@ object TrueZSPRepository {
     private const val AD_INTER_COUNTING_VALUE = "AD_INTER_COUNTING_VALUE"
     private const val SUBSCRIPTION_PLAN_VALUE = "SUBSCRIPTION_PLAN_VALUE"
     private const val OPEN_APP_AD_KEY = "OPEN_APP_AD_KEY"
+    private const val INTER_AD_VALUE = "INTER_AD_VALUE"
 
     /**Get Interstitial Ad Counter Value*/
     fun setAdInterCountValue(context: Context, adCountValue: Int) {
@@ -39,6 +40,27 @@ object TrueZSPRepository {
         getDefaultSharedPreferences(context).edit().putBoolean(
             OPEN_APP_AD_KEY, openAdValue
         ).apply()
+    }
+
+    /**Get Inter Ad Value*/
+    fun getInterAdValue(context: Context): Int {
+        return getDefaultSharedPreferences(context).getInt(INTER_AD_VALUE, 0)
+    }
+
+    fun saveInterAdValue(context: Context, interCounterValue: Int) {
+        getDefaultSharedPreferences(context).edit().putInt(
+            INTER_AD_VALUE, interCounterValue
+        ).apply()
+    }
+
+    /**Get Interstitial Ad Counter Value*/
+    fun setAdInterCounter(context: Context, adCountValue: Int) {
+        getDefaultSharedPreferences(context).edit().putInt(AD_INTER_COUNTING_VALUE, adCountValue)
+            .apply()
+    }
+
+    fun getAdInterstitialCounter(context: Context): Int {
+        return getDefaultSharedPreferences(context).getInt(AD_INTER_COUNTING_VALUE, 0)
     }
 
 }

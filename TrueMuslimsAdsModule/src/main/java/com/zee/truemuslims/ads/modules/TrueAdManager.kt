@@ -34,7 +34,7 @@ object TrueAdManager {
     private var zAdManagerAdCallbacks: TrueAdCallbacks? = null
     private var interstitialAdId: String? = null
     var nativeAdvanceAdId: String? = null
-
+    var trueAdMobManager: TrueAdMobManager? = null
 
     fun zInitializeAds(
         zContext: Context,
@@ -212,6 +212,99 @@ object TrueAdManager {
             else -> Z_NONE
         }
     }
+
+    /**Load Native Ad In Advance*/
+    fun zLoadNativeAdInAdvance(
+        context: Activity,
+        nativeAdsId: String
+    ) {
+        trueAdMobManager = TrueAdMobManager(context)
+        trueAdMobManager!!.loadAdmobNativeInAdvance(context, nativeAdsId)
+    }
+
+    /**Show Native Ad in Advance*/
+    fun zShowNativeAdInAdvance(
+        context: Activity,
+        nativeAdId: String,
+        zNativeAdvancedView: TrueZNativeAdvancedView,
+        zPriorityType: TrueAdPriorityType = zNativeAdvancedPriorityType
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            trueAdMobManager = TrueAdMobManager(context)
+            when (zPriorityType) {
+                Z_AD_MOB -> trueAdMobManager!!.showAdmobNativeInAdvance(
+                    context,
+                    nativeAdId,
+                    zNativeAdvancedView
+                )
+                Z_NONE -> Unit
+            }
+        } else {
+            zNativeAdvancedView.visibility = View.GONE
+        }
+
+    }
+
+    /**Load Flipping Ad In Advance*/
+    fun zLoadFlippingNativeAdInAdvance(
+        context: Activity,
+        flippingNativeAdsId: String
+    ) {
+        trueAdMobManager = TrueAdMobManager(context)
+        trueAdMobManager!!.loadAdmobFlippingNativeInAdvance(context, flippingNativeAdsId)
+    }
+
+    fun zShowFlippingNativeAdInAdvance(
+        context: Activity,
+        flippingNativeAdId: String,
+        zNativeBannerFlippingView: TrueZNativeBannerFlippingView,
+        zPriorityType: TrueAdPriorityType = zNativeBannerFlippingPriorityType
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            trueAdMobManager = TrueAdMobManager(context)
+            when (zPriorityType) {
+                Z_AD_MOB -> trueAdMobManager!!.showAdmobFlippingNativeInAdvance(
+                    context,
+                    flippingNativeAdId,
+                    zNativeBannerFlippingView
+                )
+                Z_NONE -> Unit
+            }
+        } else {
+            zNativeBannerFlippingView.visibility = View.GONE
+        }
+    }
+
+    /**Load Simple Ad In Advance*/
+    fun zLoadSimpleNativeAdInAdvance(
+        context: Activity,
+        simpleNativeAdsId: String
+    ) {
+        trueAdMobManager = TrueAdMobManager(context)
+        trueAdMobManager!!.loadAdmobSimpleNativeInAdvance(context, simpleNativeAdsId)
+    }
+
+    fun zShowSimpleNativeAdInAdvance(
+        context: Activity,
+        simpleNativeAdsIdNativeAdId: String,
+        simpleNativeAdsIdBannerSimpleView: TrueZNativeBannerSimpleView,
+        zPriorityType: TrueAdPriorityType = zNativeBannerSimplePriorityType
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            trueAdMobManager = TrueAdMobManager(context)
+            when (zPriorityType) {
+                Z_AD_MOB -> trueAdMobManager!!.showAdmobSimpleNativeInAdvance(
+                    context,
+                    simpleNativeAdsIdNativeAdId,
+                    simpleNativeAdsIdBannerSimpleView
+                )
+                Z_NONE -> Unit
+            }
+        } else {
+            simpleNativeAdsIdBannerSimpleView.visibility = View.GONE
+        }
+    }
+
 
     fun zShowNativeAdvanced(
         zNativeAdvancedView: TrueZNativeAdvancedView,
