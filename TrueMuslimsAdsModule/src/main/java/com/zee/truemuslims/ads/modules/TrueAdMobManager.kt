@@ -1008,8 +1008,10 @@ class TrueAdMobManager(
                 mSimpleAdmobNative!!.destroy()
             }
             mSimpleAdmobNative = nativeAd
+            Toast.makeText(context, "Show Native Ad Id 1 : $nativeAd", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "mSimpleAdmobNative Ad Id 1 : $mSimpleAdmobNative", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(context, "mSimpleAdmobNative Ad Id 1 : $mSimpleAdmobNative", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "mSimpleAdmobNative Ad Id 2 : $mSimpleAdmobNative", Toast.LENGTH_SHORT).show()
         val videoOptions = VideoOptions.Builder()
             .setStartMuted(true)
             .build()
