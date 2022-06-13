@@ -1004,12 +1004,13 @@ class TrueAdMobManager(
         )
         Toast.makeText(context, "Builder : $prefNameSimpleNativeInAdvanced", Toast.LENGTH_SHORT).show()
         builder.forNativeAd { nativeAd ->
-            if (mSimpleAdmobNative != null) {
-                mSimpleAdmobNative!!.destroy()
-            }
-            mSimpleAdmobNative = nativeAd
             Toast.makeText(context, "Show Native Ad Id 1 : $nativeAd", Toast.LENGTH_SHORT).show()
             Toast.makeText(context, "mSimpleAdmobNative Ad Id 1 : $mSimpleAdmobNative", Toast.LENGTH_SHORT).show()
+            /*if (mSimpleAdmobNative != null) {
+                mSimpleAdmobNative!!.destroy()
+            }*/
+            mSimpleAdmobNative = nativeAd
+
         }
         Toast.makeText(context, "mSimpleAdmobNative Ad Id 2 : $mSimpleAdmobNative", Toast.LENGTH_SHORT).show()
         val videoOptions = VideoOptions.Builder()
@@ -1022,6 +1023,7 @@ class TrueAdMobManager(
         mSimpleAdmobNativeAdLoader = builder.withAdListener(object : AdListener() {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
+                Toast.makeText(context, "Loaded...", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAdClosed() {
