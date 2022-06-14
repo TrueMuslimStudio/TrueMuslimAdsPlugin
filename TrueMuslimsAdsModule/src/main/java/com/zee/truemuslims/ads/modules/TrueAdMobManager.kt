@@ -14,7 +14,6 @@ import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.zee.truemuslims.ads.modules.adlimits.TrueAdLimitUtils
 import com.zee.truemuslims.ads.modules.adlimits.TruePrefUtils
 import com.google.android.gms.ads.*
