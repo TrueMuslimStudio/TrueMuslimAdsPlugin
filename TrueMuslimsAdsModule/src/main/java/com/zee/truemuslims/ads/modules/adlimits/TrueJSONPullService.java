@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -39,6 +40,8 @@ public class TrueJSONPullService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.d(TAG, "Start Pulling JSON data");
+        Toast.makeText(this, "Start Pulling JSON data", Toast.LENGTH_SHORT).show();
         Timber.d("Start Pulling JSON data");
         if (intent == null)
             return;
@@ -76,6 +79,7 @@ public class TrueJSONPullService extends IntentService {
             boolean fanActivated = networksObject.getBoolean("fan_activated");
 
             TruePrefUtils.getInstance().init(getApplicationContext(), TruePrefUtils.PREF_NAME).zUpdateNetworksData(admobActivated, fanActivated);
+            Log.d(TAG, "Success : " );
 
             JSONArray adUnitsArray = o.getJSONArray("ad_units");
             for (int i = 0; i < adUnitsArray.length(); i++) {
@@ -92,7 +96,7 @@ public class TrueJSONPullService extends IntentService {
                 Log.d(TAG, "Success : " + " Unit Is Is: " + unitId
                         + " Ad Type : " + adType + adActivated + " | " + clicks + " | " + impressions + " | " + delayMs + " | " + banHours + " | " + hideOnClick);
 
-                /**Update Preferences*/
+                Toast.makeText(this, " Unit Is Is: " + unitId, Toast.LENGTH_SHORT).show();
 
                 /**WorkAround for creating pref xml file as it doesn't support slash symbol .. so we get the after slash only*/
                 if (unitId.contains("/")) {

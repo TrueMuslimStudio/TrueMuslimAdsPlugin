@@ -193,7 +193,6 @@ class TrueAdMobManager(
                 prefNameFlippingNativeBanner =
                     nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
             }
-            Log.d(TAG, "zLoadNativeBannerFlipping: $prefNameFlippingNativeBanner")
 
             val adLoader = AdLoader.Builder(
                 zContext!!,
@@ -264,7 +263,6 @@ class TrueAdMobManager(
                             zAdType = TrueAdsType.Z_ADMOB,
                             zWhatAd = TrueWhatAd.Z_NATIVE_BANNER_FLIPPING
                         )
-                        Toast.makeText(zContext, "Ad CLicked ", Toast.LENGTH_SHORT).show()
                         TruePrefUtils.getInstance().init(zContext, prefNameFlippingNativeBanner)
                             .zUpdateClicksCounter()
                     }
