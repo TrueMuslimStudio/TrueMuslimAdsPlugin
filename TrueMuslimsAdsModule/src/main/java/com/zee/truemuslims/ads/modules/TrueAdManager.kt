@@ -148,6 +148,8 @@ object TrueAdManager {
                 )
                 else -> Unit
             }
+        } else {
+            zBannerView.visibility = View.GONE
         }
     }
 
