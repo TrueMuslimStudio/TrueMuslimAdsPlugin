@@ -50,24 +50,23 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.admob_native_advanced_id),
             zMainBinding.zNativeAdvancedBanner
         )
-        TrueAdManager.zShowFlippingNativeAdInAdvance(
-            this,
-            resources.getString(R.string.admob_native_advanced_id),
-            zMainBinding.zNativeFlippingBanner
+        TrueAdManager.zShowFlippingNativeBanner(
+            zMainBinding.zNativeFlippingBanner,
+            resources.getString(R.string.admob_native_advanced_id)
         )
         TrueAdManager.zShowSimpleNativeAdInAdvance(
             this,
             resources.getString(R.string.admob_native_advanced_id),
             zMainBinding.zNativeSimpleBanner
         )
-      /*  TrueAdManager.zShowFlippingNativeBanner(
-            zMainBinding.zNativeFlippingBanner,
-            getString(R.string.Admob_NativeAdvancedId)
-        )
-        TrueAdManager.zShowSimpleNativeBanner(
-            zMainBinding.zNativeSimpleBanner,
-            getString(R.string.Admob_NativeAdvancedId)
-        )*/
+        /*  TrueAdManager.zShowFlippingNativeBanner(
+              zMainBinding.zNativeFlippingBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )
+          TrueAdManager.zShowSimpleNativeBanner(
+              zMainBinding.zNativeSimpleBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )*/
 
         TrueAdManager.zShowBannerWithOutFallback(
             zMainBinding.zBannerContainer,

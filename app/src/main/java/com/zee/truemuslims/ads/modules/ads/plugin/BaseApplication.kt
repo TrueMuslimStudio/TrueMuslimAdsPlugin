@@ -32,7 +32,7 @@ class BaseApplication : Application() {
         TrueAdManager.zSetInterstitialPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetBannerPriority(TrueAdPriorityType.Z_AD_MOB)
         TrueAdManager.zSetTimeout(TrueConstants.h3SecTimeOut)
-        /*if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
+      /*  if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://suhaatech.com/AdsId/testads.json")
         }*/

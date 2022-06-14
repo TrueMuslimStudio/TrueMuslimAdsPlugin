@@ -30,10 +30,10 @@ class SplashScreenActivity : AppCompatActivity() {
             this,
             resources.getString(R.string.admob_native_advanced_id)
         )
-            TrueAdManager.zLoadSimpleNativeAdInAdvance(
+       /*     TrueAdManager.zLoadSimpleNativeAdInAdvance(
                 this,
                 resources.getString(R.string.admob_native_advanced_id)
-            )
+            )*/
         Handler(Looper.myLooper()!!).postDelayed({
             mainBinding.splashPB.visibility = View.GONE
             mainBinding.getStartedBtn.visibility = View.VISIBLE

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -53,6 +54,7 @@ class TrueAdMobManager(
     private var prefNameFlippingNativeInAdvanced: String? = null
     private var prefNameSimpleNativeInAdvanced: String? = null
     private var prefNameNativeBanner: String? = null
+    private var prefNameFlippingNativeBanner: String? = null
 
     var TAG = "TrueAdMobClass"
     lateinit var dialog: Dialog
@@ -188,9 +190,11 @@ class TrueAdMobManager(
     ) {
         CoroutineScope(Dispatchers.Main).launch {
             if (nativeAdvancedId.contains("/")) {
-                prefNameNativeBanner =
+                prefNameFlippingNativeBanner =
                     nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
             }
+            Log.d(TAG, "zLoadNativeBannerFlipping: $prefNameFlippingNativeBanner")
+
             val adLoader = AdLoader.Builder(
                 zContext!!,
                 nativeAdvancedId
@@ -250,7 +254,7 @@ class TrueAdMobManager(
                             zAdType = TrueAdsType.Z_ADMOB,
                             zWhatAd = TrueWhatAd.Z_NATIVE_BANNER_FLIPPING
                         )
-                        TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
+                        TruePrefUtils.getInstance().init(zContext, prefNameFlippingNativeBanner)
                             .zUpdateImpressionCounter()
                     }
 
@@ -260,7 +264,8 @@ class TrueAdMobManager(
                             zAdType = TrueAdsType.Z_ADMOB,
                             zWhatAd = TrueWhatAd.Z_NATIVE_BANNER_FLIPPING
                         )
-                        TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner)
+                        Toast.makeText(zContext, "Ad CLicked ", Toast.LENGTH_SHORT).show()
+                        TruePrefUtils.getInstance().init(zContext, prefNameFlippingNativeBanner)
                             .zUpdateClicksCounter()
                     }
 
@@ -275,21 +280,22 @@ class TrueAdMobManager(
                 .build()
             if (!TrueAdLimitUtils.isBanned(
                     zContext,
-                    prefNameNativeBanner,
+                    prefNameFlippingNativeBanner,
                     "Native Banner Ad"
                 )
             ) {
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
+                        Log.d(TAG, "Ad Id Is: : $prefNameFlippingNativeBanner")
                         adLoader.loadAd(AdRequest.Builder().build())
                     },
-                    TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner).delayMs
+                    TruePrefUtils.getInstance().init(zContext, prefNameFlippingNativeBanner).delayMs
                 )
             } else {
                 Timber.tag("AdmobInter").d(
                     "Native Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
                         zContext,
-                        prefNameNativeBanner,
+                        prefNameFlippingNativeBanner,
                         "Native Banner Ad"
                     )
                 )
@@ -993,32 +999,19 @@ class TrueAdMobManager(
         context: Context,
         nativeAdvancedId: String,
     ) {
-        Toast.makeText(context, "Native Advance Ad Id $nativeAdvancedId", Toast.LENGTH_SHORT).show()
         if (nativeAdvancedId.contains("/")) {
             prefNameSimpleNativeInAdvanced =
                 nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
         }
-        Toast.makeText(
-            context,
-            "Native Advance Ad Id 1 : $prefNameSimpleNativeInAdvanced",
-            Toast.LENGTH_SHORT
-        ).show()
         val builder = AdLoader.Builder(
             context, nativeAdvancedId
         )
-        Toast.makeText(context, "Builder : $prefNameSimpleNativeInAdvanced", Toast.LENGTH_SHORT)
-            .show()
         builder.forNativeAd { nativeAd ->
             if (mSimpleAdmobNative != null) {
                 mSimpleAdmobNative!!.destroy()
             }
             mSimpleAdmobNative = nativeAd
         }
-        Toast.makeText(
-            context,
-            "mSimpleAdmobNative Ad Id 2 : $mSimpleAdmobNative",
-            Toast.LENGTH_SHORT
-        ).show()
         val videoOptions = VideoOptions.Builder()
             .setStartMuted(true)
             .build()
@@ -1026,12 +1019,9 @@ class TrueAdMobManager(
             .setVideoOptions(videoOptions)
             .build()
         builder.withNativeAdOptions(adOptions)
-        Toast.makeText(context, "Ad Options Is : $adOptions", Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "Builder Is : $builder", Toast.LENGTH_SHORT).show()
         mSimpleAdmobNativeAdLoader = builder.withAdListener(object : AdListener() {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
-                Toast.makeText(context, "Loaded...", Toast.LENGTH_SHORT).show()
             }
 
             override fun onAdClosed() {
@@ -1056,7 +1046,6 @@ class TrueAdMobManager(
                     zAdType = TrueAdsType.Z_ADMOB,
                     zWhatAd = TrueWhatAd.Z_NATIVE_ADVANCED
                 )
-                Toast.makeText(context, "Loaded...", Toast.LENGTH_SHORT).show()
                 TruePrefUtils.getInstance().init(context, prefNameSimpleNativeInAdvanced)
                     .zUpdateImpressionCounter()
             }
@@ -1080,7 +1069,6 @@ class TrueAdMobManager(
             }
         }).build()
         if (isAppInstalledFromPlay(context)) {
-            mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
             if (!TrueAdLimitUtils.isBanned(
                     context,
                     prefNameSimpleNativeInAdvanced,
@@ -1091,11 +1079,6 @@ class TrueAdMobManager(
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
                         mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
-                        Toast.makeText(
-                            context,
-                            "Native Ad Loader Is  : $mSimpleAdmobNativeAdLoader",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     },
                     TruePrefUtils.getInstance()
                         .init(context, prefNameSimpleNativeInAdvanced).delayMs
@@ -1137,11 +1120,9 @@ class TrueAdMobManager(
                         mSimpleAdmobNative!!,
                         trueZNativeBannerSimpleView
                     )
-                    Toast.makeText(context, "Show ", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 loadAdmobSimpleNativeInAdvance(context, nativeAdId)
-                Toast.makeText(context, "request To Load", Toast.LENGTH_SHORT).show()
             }
         }
     }
