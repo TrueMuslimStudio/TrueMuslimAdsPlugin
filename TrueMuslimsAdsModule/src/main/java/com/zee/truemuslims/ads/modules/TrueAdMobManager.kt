@@ -50,9 +50,6 @@ class TrueAdMobManager(
     private var prefName: String? = null
     private var prefNameInter: String? = null
     private var prefNameNative: String? = null
-    private var prefNameNativeInAdvanced: String? = null
-    private var prefNameFlippingNativeInAdvanced: String? = null
-    private var prefNameSimpleNativeInAdvanced: String? = null
     private var prefNameNativeBanner: String? = null
     private var prefNameFlippingNativeBanner: String? = null
 
@@ -67,6 +64,10 @@ class TrueAdMobManager(
         var admobNativeAdLoader: AdLoader? = null
         var mSimpleAdmobNativeAdLoader: AdLoader? = null
         var mFlippingAdmobNativeAdLoader: AdLoader? = null
+
+        private var prefNameFlippingNativeInAdvanced: String? = null
+        private var prefNameSimpleNativeInAdvanced: String? = null
+        private var prefNameNativeInAdvanced: String? = null
 
         fun zGetPixelFromDp(application: Context?, dp: Int): Int {
             val display =
