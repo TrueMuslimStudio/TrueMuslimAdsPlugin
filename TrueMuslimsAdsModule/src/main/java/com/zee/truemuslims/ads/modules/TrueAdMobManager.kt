@@ -1029,6 +1029,8 @@ class TrueAdMobManager(
         mSimpleAdmobNativeAdLoader = builder.withAdListener(object : AdListener() {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
+                Toast.makeText(context, "Ad Failed: ${loadAdError.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             override fun onAdClosed() {
@@ -1075,7 +1077,8 @@ class TrueAdMobManager(
                 )
             }
         }).build()
-
+        Toast.makeText(context, "Ad Builder Is : ${mSimpleAdmobNativeAdLoader}", Toast.LENGTH_SHORT)
+            .show()
         if (isAppInstalledFromPlay(context)) {
 //            Toast.makeText(context, "Builder Is : $builder", Toast.LENGTH_SHORT).show()
 
