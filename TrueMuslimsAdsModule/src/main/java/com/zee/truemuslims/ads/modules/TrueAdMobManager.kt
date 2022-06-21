@@ -1079,11 +1079,11 @@ class TrueAdMobManager(
         if (isAppInstalledFromPlay(context)) {
 //            Toast.makeText(context, "Builder Is : $builder", Toast.LENGTH_SHORT).show()
 
-//            Toast.makeText(
-//                context,
-//                "prefNameSimpleNativeInAdvanced123: $prefNameSimpleNativeInAdvanced",
-//                Toast.LENGTH_SHORT
-//            ).show()
+            Toast.makeText(
+                context,
+                "prefNameSimpleNativeInAdvanced123: $prefNameSimpleNativeInAdvanced",
+                Toast.LENGTH_SHORT
+            ).show()
             if (!TrueAdLimitUtils.isBanned(
                     context,
                     prefNameSimpleNativeInAdvanced,
