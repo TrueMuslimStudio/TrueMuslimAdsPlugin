@@ -1005,7 +1005,7 @@ class TrueAdMobManager(
         }
         Toast.makeText(
             context,
-            "Prefer Native: $prefNameSimpleNativeInAdvanced",
+            "Prefer Native 1 2: $prefNameSimpleNativeInAdvanced",
             Toast.LENGTH_SHORT
         ).show()
         val builder = AdLoader.Builder(
@@ -1079,7 +1079,11 @@ class TrueAdMobManager(
         if (isAppInstalledFromPlay(context)) {
 //            Toast.makeText(context, "Builder Is : $builder", Toast.LENGTH_SHORT).show()
 
-
+//            Toast.makeText(
+//                context,
+//                "prefNameSimpleNativeInAdvanced123: $prefNameSimpleNativeInAdvanced",
+//                Toast.LENGTH_SHORT
+//            ).show()
             if (!TrueAdLimitUtils.isBanned(
                     context,
                     prefNameSimpleNativeInAdvanced,
@@ -1088,7 +1092,7 @@ class TrueAdMobManager(
             ) {
                 Toast.makeText(
                     context,
-                    "prefNameSimpleNativeInAdvanced: $prefNameSimpleNativeInAdvanced",
+                    "prefNameSimpleNativeInAdvanced12345: $prefNameSimpleNativeInAdvanced",
                     Toast.LENGTH_SHORT
                 ).show()
                 /** It will be executed when its true*/
@@ -1097,7 +1101,7 @@ class TrueAdMobManager(
                         mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
                         Toast.makeText(
                             context,
-                            "prefNameSimpleNativeInAdvanced12: $prefNameSimpleNativeInAdvanced",
+                            "prefNameSimpleNativeInAdvanced123456: $prefNameSimpleNativeInAdvanced",
                             Toast.LENGTH_SHORT
                         ).show()
                     },
