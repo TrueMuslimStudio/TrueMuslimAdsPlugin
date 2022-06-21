@@ -26,7 +26,7 @@ class SplashScreenActivity : AppCompatActivity() {
             this,
             resources.getString(R.string.admob_native_advanced_id)
         )
-        TrueAdManager.zLoadFlippingNativeAdInAdvance(
+        TrueAdManager.zLoadSimpleNativeAdInAdvance(
             this,
             resources.getString(R.string.admob_native_advanced_id)
         )
