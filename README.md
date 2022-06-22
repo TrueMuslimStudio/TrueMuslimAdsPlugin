@@ -82,12 +82,32 @@ Step 11:Load Ads By passing View And AdId.
 
 Banner Ad:
 
-	zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId)
+	TrueAdManager.zShowBannerWithOutFallback(zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId))
 	    
 Native Advance Ad:
 
 	TrueAdManager.zShowNativeAdvanced(hMainBinding.zNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
-	    
+
+Interstitial Ad:
+
+	TrueAdManager.zShowInterstitial(
+                this,
+              adsId
+            )
+Simple Native Banner Ad:
+	
+	TrueAdManager.zShowSimpleNativeBanner(
+              zMainBinding.zNativeSimpleBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )
+	  
+Fliping Native Banner Ad:
+	
+	TrueAdManager.zShowFlippingNativeBanner(
+              zMainBinding.zNativeFlippingBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )
+	  
 Load And Show Interstitial Ads at Same Time:
 
 	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
@@ -132,6 +152,7 @@ Show Native Ad in Advance:
            adsId,
            adLayout
         )
+	
 Show Simple Native Banner Ad in Advance:
 
 	 TrueAdManager.zShowSimpleNativeAdInAdvance(
@@ -139,6 +160,7 @@ Show Simple Native Banner Ad in Advance:
             resources.getString(R.string.admob_native_advanced_id),
             zMainBinding.zNativeSimpleBanner
         )
+	
 Show Flipping Native Banner Ad in Advance:	
 
 	 TrueAdManager.zShowFlippingNativeAdInAdvance(
