@@ -18,7 +18,7 @@ Step 1. Add the JitPack repository to your build file , Add it in your root buil
 Step 2. Add the dependency
 
 	dependencies {
-	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.1'
+	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.2.1'
 	}
 	
 	
@@ -34,7 +34,7 @@ Step 4. Add Admob App Open Ad in Application Class:
 	
 Step 5. Get Json File from server and Add it in BaseApplication	:
 
-	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
+	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh() && TrueConstants.isAppInstalledFromPlay(this)) {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://example.json")
         }
@@ -88,9 +88,21 @@ Native Advance AdView
 
 	TrueAdManager.zShowNativeAdvanced(hMainBinding.zNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
 	    
-Interstitial Ads:
+Load And Show Interstitial Ads at Same Time:
 
 	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
+	
+Load InTerstitial Ad In Advance On Splash Sreen Accourding Ads Implementation:
+
+	TrueAdManager.zLoadInterstitialInAdvance(
+           this,
+            adId
+        )
+	
+Show InTerstitial Ad In Advance :	
+
+	        TrueAdManager.zShowInterstitialInAdvance(this)
+
 	
 Step 12: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
