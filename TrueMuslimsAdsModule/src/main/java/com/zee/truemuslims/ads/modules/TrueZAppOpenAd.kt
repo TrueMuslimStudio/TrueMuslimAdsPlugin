@@ -154,7 +154,6 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         Handler(Looper.getMainLooper()).postDelayed({
-            Toast.makeText(myApplication, "Ad Value: ${!TrueConstants.isInterstitialAdShow(myApplication)}", Toast.LENGTH_SHORT).show()
             if (!TrueConstants.isInterstitialAdShow(myApplication)) {
                 showAdIfAvailable()
             }
