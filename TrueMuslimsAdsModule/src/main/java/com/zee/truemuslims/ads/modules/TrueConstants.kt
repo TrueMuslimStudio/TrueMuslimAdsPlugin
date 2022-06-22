@@ -15,7 +15,7 @@ object TrueConstants {
     const val h3SecTimeOut = 3000L
     const val h5SecTimeOut = 5000L
     const val h8SecTimeOut = 8000L
-    var mShowInterstitialAds = false
+    final var mShowInterstitialAds = false
     fun isInterstitialAdShow(context: Context): Boolean {
         return mShowInterstitialAds
     }

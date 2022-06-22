@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -153,12 +154,15 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         Handler(Looper.getMainLooper()).postDelayed({
-            showAdIfAvailable()
+            Toast.makeText(myApplication, "Ad Value: ${!TrueConstants.isInterstitialAdShow(myApplication)}", Toast.LENGTH_SHORT).show()
+            if (!TrueConstants.isInterstitialAdShow(myApplication)) {
+                showAdIfAvailable()
+            }
         }, 1000)
     }
 
     private fun isAdAvailable(): Boolean {
-        return appOpenAd != null && !TrueConstants.isInterstitialAdShow(myApplication) && !TrueZSPRepository.getSubscription(
+        return appOpenAd != null && !TrueZSPRepository.getSubscription(
             myApplication
         ) && wasLoadTimeLessThanNHoursAgo(4)
     }

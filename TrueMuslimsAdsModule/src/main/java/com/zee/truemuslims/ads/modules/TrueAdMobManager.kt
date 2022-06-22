@@ -58,6 +58,7 @@ class TrueAdMobManager(
 
     @Suppress("DEPRECATION")
     companion object {
+        var mShowInterstitialAds = false
         var zInterstitialAdInAdvance: InterstitialAd? = null
         var mAdmobNative: NativeAd? = null
         var mFlippingAdmobNative: NativeAd? = null

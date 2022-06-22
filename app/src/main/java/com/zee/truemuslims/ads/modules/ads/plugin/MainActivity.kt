@@ -61,14 +61,14 @@ class MainActivity : AppCompatActivity() {
             zMainBinding.zNativeSimpleBanner
         )
         TrueAdManager.zShowInterstitialInAdvance(this)
-        /*  TrueAdManager.zShowFlippingNativeBanner(
+          TrueAdManager.zShowFlippingNativeBanner(
               zMainBinding.zNativeFlippingBanner,
               getString(R.string.Admob_NativeAdvancedId)
           )
           TrueAdManager.zShowSimpleNativeBanner(
               zMainBinding.zNativeSimpleBanner,
               getString(R.string.Admob_NativeAdvancedId)
-          )*/
+          )
 
         TrueAdManager.zShowBannerWithOutFallback(
             zMainBinding.zBannerContainer,
