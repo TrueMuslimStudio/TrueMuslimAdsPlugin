@@ -18,7 +18,7 @@ Step 1. Add the JitPack repository to your build file , Add it in your root buil
 Step 2. Add the dependency
 
 	dependencies {
-	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.1'
+	       implementation 'com.github.TrueMuslimStudio:TrueMuslimAdsPlugin:1.2.1'
 	}
 	
 	
@@ -34,7 +34,7 @@ Step 4. Add Admob App Open Ad in Application Class:
 	
 Step 5. Get Json File from server and Add it in BaseApplication	:
 
-	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
+	if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh() && TrueConstants.isAppInstalledFromPlay(this)) {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://example.json")
         }
@@ -80,17 +80,94 @@ Step 10. To set the Ads Callback use the following methods in your calling activ
 
 Step 11:Load Ads By passing View And AdId.
 
-Banner AdView
+Banner Ad:
 
-	zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId)
+	TrueAdManager.zShowBannerWithOutFallback(zMainBinding.zBannerContainer,getString(R.string.Admob_BannerId))
 	    
-Native Advance AdView
+Native Advance Ad:
 
 	TrueAdManager.zShowNativeAdvanced(hMainBinding.zNativeAdvancedBanner,getString(R.string.Admob_NativeAdvancedId))
-	    
-Interstitial Ads:
+
+Interstitial Ad:
+
+	TrueAdManager.zShowInterstitial(
+                this,
+              adsId
+            )
+Simple Native Banner Ad:
+	
+	TrueAdManager.zShowSimpleNativeBanner(
+              zMainBinding.zNativeSimpleBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )
+	  
+Fliping Native Banner Ad:
+	
+	TrueAdManager.zShowFlippingNativeBanner(
+              zMainBinding.zNativeFlippingBanner,
+              getString(R.string.Admob_NativeAdvancedId)
+          )
+	  
+Load And Show Interstitial Ads at Same Time:
 
 	TrueAdManager.zShowInterstitial(this,resources.getString(R.string.Admob_InterstitialId))
+	
+Load InTerstitial Ad In Advance On Splash Sreen Accourding Ads Implementation:
+
+	TrueAdManager.zLoadInterstitialInAdvance(
+           this,
+            adId
+        )
+	
+
+Load Native Advance Ad in Advance On Splash Screen:
+
+	 TrueAdManager.zLoadNativeAdInAdvance(
+            this,
+            adsId
+        )
+	
+Load Simple Native Banner Ad in Advance On Splash Screen:	
+
+        TrueAdManager.zLoadSimpleNativeAdInAdvance(
+            this,
+            adsId
+        )
+	
+Load Flipping Native Banner Ad in Advance On Splash Screen:	
+
+	 TrueAdManager.zLoadFlippingNativeAdInAdvance(
+            this,
+            adsId
+        )
+	
+Show InTerstitial Ad In Advance :	
+
+	TrueAdManager.zShowInterstitialInAdvance(this)
+	
+Show Native Ad in Advance:
+
+	 TrueAdManager.zShowNativeAdInAdvance(
+           this,
+           adsId,
+           adLayout
+        )
+	
+Show Simple Native Banner Ad in Advance:
+
+	 TrueAdManager.zShowSimpleNativeAdInAdvance(
+            this,
+            resources.getString(R.string.admob_native_advanced_id),
+            zMainBinding.zNativeSimpleBanner
+        )
+	
+Show Flipping Native Banner Ad in Advance:	
+
+	 TrueAdManager.zShowFlippingNativeAdInAdvance(
+            this,
+            resources.getString(R.string.admob_native_advanced_id),
+            zMainBinding.zNativeFlippingBanner
+        )
 	
 Step 12: By default AdContainers i.e. ZnativeBannerView and ZnativeAdvacncedView are rounded and
 are given app's primary color and stroke. To change use method:
@@ -115,7 +192,6 @@ are given app's primary color and stroke. To change use method:
 Step 13: Layout for Native Banner Ad.
 
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeBannerView
-	 android:id="@+id/zNativeBanner"
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 app:zBackgroundColor="@color/black"
@@ -126,10 +202,8 @@ Step 13: Layout for Native Banner Ad.
  Step 14: To Show you own Holder while ad is loading over NativeAdvanced use following:.
  
 	 <com.zee.truemuslims.ads.modules.customadview.TrueZNativeAdvancedView
-		android:id="@+id/zNativeAdvancedBanner"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:zLoaderContainer="@layout/native_advanced_alternative"/>
+		android:layout_height="wrap_content"/>
 		
  Step 15: Add Service Class in Manifest.
 
