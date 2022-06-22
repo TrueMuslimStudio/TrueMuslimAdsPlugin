@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.admob_native_advanced_id),
             zMainBinding.zNativeSimpleBanner
         )
+        TrueAdManager.zShowInterstitialInAdvance(this)
         /*  TrueAdManager.zShowFlippingNativeBanner(
               zMainBinding.zNativeFlippingBanner,
               getString(R.string.Admob_NativeAdvancedId)

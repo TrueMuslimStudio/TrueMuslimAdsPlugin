@@ -367,6 +367,26 @@ object TrueAdManager {
         }
     }
 
+    /**Load Interstitial Ad In Advance*/
+    fun zLoadInterstitialInAdvance(
+        context: Activity,
+        adId: String,
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            zAdMobManager?.zLoadInterstitialInAdvance(
+                context, adId
+            )
+        }
+    }
+
+    /**Show Interstitial Ad In Advance*/
+    fun zShowInterstitialInAdvance(context: Activity) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            zAdMobManager?.zShowInterstitialAdInAdvance(
+                context
+            )
+        }
+    }
 
     /**For Manually changing the priorities*/
     fun zSetNativeBannerPriorityFlipping(

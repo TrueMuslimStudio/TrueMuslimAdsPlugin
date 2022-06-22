@@ -36,7 +36,7 @@ class BaseApplication : Application() {
             TrueAntiAdLimit.getInstance()
                 .init(this, "https://suhaatech.com/AdsId/charging_animation_final_hkdsjsdhjgkdhsgjksdh.json")
         }
-//        trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
+        trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
     }
 
     private fun zTintTimber() {

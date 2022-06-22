@@ -158,7 +158,7 @@ class TrueZAppOpenAd(private val myApplication: Application, var openAdId: Strin
     }
 
     private fun isAdAvailable(): Boolean {
-        return appOpenAd != null && !TrueAdsCalBackObject.interstitialAdnValue && !TrueZSPRepository.getSubscription(
+        return appOpenAd != null && !TrueConstants.isInterstitialAdShow(myApplication) && !TrueZSPRepository.getSubscription(
             myApplication
         ) && wasLoadTimeLessThanNHoursAgo(4)
     }

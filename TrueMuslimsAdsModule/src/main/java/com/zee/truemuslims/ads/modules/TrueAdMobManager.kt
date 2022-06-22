@@ -22,6 +22,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
+import com.zee.truemuslims.ads.modules.TrueAdsCalBackObject.interstitialAdnValue
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
 import com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
@@ -57,12 +58,15 @@ class TrueAdMobManager(
 
     @Suppress("DEPRECATION")
     companion object {
+        var zInterstitialAdInAdvance: InterstitialAd? = null
         var mAdmobNative: NativeAd? = null
         var mFlippingAdmobNative: NativeAd? = null
         var mSimpleAdmobNative: NativeAd? = null
+        var prefNameInterInAdvance: String? = null
         var admobNativeAdLoader: AdLoader? = null
         var mSimpleAdmobNativeAdLoader: AdLoader? = null
         var mFlippingAdmobNativeAdLoader: AdLoader? = null
+        private var zInterCallbacksInAdvance: TrueInterCallbacks? = null
 
         private var prefNameFlippingNativeInAdvanced: String? = null
         private var prefNameSimpleNativeInAdvanced: String? = null
@@ -177,6 +181,125 @@ class TrueAdMobManager(
                     )
                 )
             }
+        }
+    }
+
+
+    fun zLoadInterstitialInAdvance(
+        context: Activity,
+        interId: String
+    ) {
+        if (interId.contains("/")) {
+            prefNameInterInAdvance = interId.substring(interId.lastIndexOf("/") + 1)
+        }
+        CoroutineScope(Dispatchers.Main).launch {
+            var zCallBackCalled = false
+            if (!TrueAdLimitUtils.isBanned(context, prefNameInterInAdvance, "Interstitial Ad")) {
+                /** it will be executed when its true*/
+                val adRequest = AdRequest.Builder().build()
+                Handler(Looper.getMainLooper()).postDelayed(
+                    {
+                        InterstitialAd.load(
+                            zContext!!,
+                            interId,
+                            adRequest,
+                            object : InterstitialAdLoadCallback() {
+                                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                                    zInterstitialAdInAdvance = interstitialAd
+                                    interstitialAd.fullScreenContentCallback =
+                                        object : FullScreenContentCallback() {
+                                            override fun onAdDismissedFullScreenContent() {
+                                                zInterCallbacksInAdvance?.zOnAddDismissed(
+                                                    TrueAdsType.Z_ADMOB
+                                                )
+                                                zCallBackCalled = true
+                                                TrueConstants.mShowInterstitialAds = false
+                                            }
+
+                                            override fun onAdFailedToShowFullScreenContent(
+                                                adError: AdError
+                                            ) {
+                                                TrueConstants.mShowInterstitialAds = true
+                                                zInterCallbacksInAdvance?.zOnAdFailedToShowFullContent(
+                                                    zAdType = TrueAdsType.Z_ADMOB,
+                                                    zError = TrueError(
+                                                        zMessage = adError.message,
+                                                        zCode = adError.code,
+                                                        zDomain = adError.domain,
+                                                    )
+                                                )
+                                                zCallBackCalled = true
+                                            }
+
+                                            override fun onAdShowedFullScreenContent() {
+                                                zInterCallbacksInAdvance?.zOnAddShowed(TrueAdsType.Z_ADMOB)
+                                                zCallBackCalled = true
+                                                zInterstitialAdInAdvance = null
+                                                TrueConstants.mShowInterstitialAds = true
+                                            }
+
+                                            override fun onAdClicked() {
+                                                super.onAdClicked()
+                                                TruePrefUtils.getInstance()
+                                                    .init(context, prefNameInter)
+                                                    .zUpdateClicksCounter()
+                                            }
+
+                                        }
+                                    TruePrefUtils.getInstance().init(context, prefNameInter)
+                                        .zUpdateImpressionCounter()
+                                    zInterCallbacksInAdvance?.zOnAddLoaded(zAdType = TrueAdsType.Z_ADMOB)
+                                    zCallBackCalled = true
+                                }
+
+                                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                                    zInterCallbacksInAdvance?.zOnAdFailedToLoad(
+                                        zAdType = TrueAdsType.Z_ADMOB,
+                                        zError = TrueError(
+                                            zMessage = loadAdError.message,
+                                            zCode = loadAdError.code,
+                                            zDomain = loadAdError.domain,
+                                        )
+                                    )
+                                    TrueConstants.mShowInterstitialAds = false
+                                    zCallBackCalled = true
+                                }
+                            }
+                        )
+                        if (zCallBackCalled.not()) {
+                            zInterCallbacksInAdvance?.zOnAdTimedOut(TrueAdsType.Z_ADMOB)
+                        }
+                    },
+                    TruePrefUtils.getInstance().init(context, prefNameInter).delayMs
+                )
+            } else {
+                Timber.tag("AdmobInter").d(
+                    "Inter Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
+                        context,
+                        prefNameInter,
+                        "Interstitial Ad"
+                    )
+                )
+            }
+        }
+    }
+
+    fun zShowInterstitialAdInAdvance(context: Activity) {
+        dialog = Dialog(context)
+        loadAds(context)
+        if (zInterstitialAdInAdvance == null) {
+            dialog.dismiss()
+        } else {
+            dialog.show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                dialog.dismiss()
+                interstitialAdnValue = if (zInterstitialAdInAdvance != null) {
+                    zInterstitialAdInAdvance?.show(context)
+                    false
+                } else {
+                    true
+                }
+            }, 1000)
         }
     }
 
