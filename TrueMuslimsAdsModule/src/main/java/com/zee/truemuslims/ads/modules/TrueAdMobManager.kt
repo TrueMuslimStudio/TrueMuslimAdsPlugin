@@ -22,7 +22,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
-import com.zee.truemuslims.ads.modules.TrueConstants.isAppInstalledFromPlay
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
 import com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
@@ -161,7 +160,6 @@ class TrueAdMobManager(
                                     dialog.dismiss()
                                     zCallBackCalled = true
                                 }
-
                             }
                         )
                         if (zCallBackCalled.not()) {
@@ -179,7 +177,6 @@ class TrueAdMobManager(
                     )
                 )
             }
-
         }
     }
 
@@ -194,7 +191,6 @@ class TrueAdMobManager(
                 prefNameFlippingNativeBanner =
                     nativeAdvancedId.substring(nativeAdvancedId.lastIndexOf("/") + 1)
             }
-
             val adLoader = AdLoader.Builder(
                 zContext!!,
                 nativeAdvancedId
@@ -546,7 +542,6 @@ class TrueAdMobManager(
         } catch (e: NotFoundException) {
             e.printStackTrace()
         }
-
     }
 
     private fun zAddPlaceHolderTextView(adContainerView: ViewGroup?) {
@@ -676,7 +671,6 @@ class TrueAdMobManager(
                     )
             }
         }
-
     }
 
     fun zSetInterCallbacks(interCallbacks: TrueInterCallbacks) {
@@ -804,20 +798,18 @@ class TrueAdMobManager(
                 )
             }
         }).build()
-        if (isAppInstalledFromPlay(context)) {
-            if (!TrueAdLimitUtils.isBanned(
-                    context,
-                    prefNameNativeInAdvanced,
-                    "Native Ad In Advance"
-                )
-            ) {
-                /** It will be executed when its true*/
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        admobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
-                    }, TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
-                )
-            }
+        if (!TrueAdLimitUtils.isBanned(
+                context,
+                prefNameNativeInAdvanced,
+                "Native Ad In Advance"
+            )
+        ) {
+            /** It will be executed when its true*/
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    admobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                }, TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
+            )
         }
     }
 
@@ -848,14 +840,12 @@ class TrueAdMobManager(
         nativeAdId: String,
         zNativeAdvancedView: TrueZNativeAdvancedView,
     ) {
-        if (isAppInstalledFromPlay(context)) {
-            if (admobNativeAdLoader != null && !admobNativeAdLoader!!.isLoading) {
-                if (mAdmobNative != null) {
-                    inflateAdNativeAdInAdvance(context, mAdmobNative!!, zNativeAdvancedView)
-                }
-            } else {
-                loadAdmobNativeInAdvance(context, nativeAdId)
+        if (admobNativeAdLoader != null && !admobNativeAdLoader!!.isLoading) {
+            if (mAdmobNative != null) {
+                inflateAdNativeAdInAdvance(context, mAdmobNative!!, zNativeAdvancedView)
             }
+        } else {
+            loadAdmobNativeInAdvance(context, nativeAdId)
         }
     }
 
@@ -934,22 +924,20 @@ class TrueAdMobManager(
                 )
             }
         }).build()
-        if (isAppInstalledFromPlay(context)) {
-            if (!TrueAdLimitUtils.isBanned(
-                    context,
-                    prefNameFlippingNativeInAdvanced,
-                    "Native Ad In Advance"
-                )
-            ) {
-                /** It will be executed when its true*/
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        mFlippingAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
-                    },
-                    TruePrefUtils.getInstance()
-                        .init(context, prefNameFlippingNativeInAdvanced).delayMs
-                )
-            }
+        if (!TrueAdLimitUtils.isBanned(
+                context,
+                prefNameFlippingNativeInAdvanced,
+                "Native Ad In Advance"
+            )
+        ) {
+            /** It will be executed when its true*/
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    mFlippingAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                },
+                TruePrefUtils.getInstance()
+                    .init(context, prefNameFlippingNativeInAdvanced).delayMs
+            )
         }
     }
 
@@ -979,17 +967,15 @@ class TrueAdMobManager(
         nativeAdId: String,
         trueZNativeBannerSimpleView: TrueZNativeBannerFlippingView,
     ) {
-        if (isAppInstalledFromPlay(context)) {
-            if (mFlippingAdmobNativeAdLoader != null && !mFlippingAdmobNativeAdLoader!!.isLoading) {
-                if (mFlippingAdmobNative != null) {
-                    inflateFlippingNativeAdInAdvance(
-                        mFlippingAdmobNative!!,
-                        trueZNativeBannerSimpleView
-                    )
-                }
-            } else {
-                loadAdmobFlippingNativeInAdvance(context, nativeAdId)
+        if (mFlippingAdmobNativeAdLoader != null && !mFlippingAdmobNativeAdLoader!!.isLoading) {
+            if (mFlippingAdmobNative != null) {
+                inflateFlippingNativeAdInAdvance(
+                    mFlippingAdmobNative!!,
+                    trueZNativeBannerSimpleView
+                )
             }
+        } else {
+            loadAdmobFlippingNativeInAdvance(context, nativeAdId)
         }
     }
 
@@ -1067,23 +1053,21 @@ class TrueAdMobManager(
                 )
             }
         }).build()
-//        if (isAppInstalledFromPlay(context)) {
-            if (!TrueAdLimitUtils.isBanned(
-                    context,
-                    prefNameSimpleNativeInAdvanced,
-                    "Native Ad In Advance"
-                )
-            ) {
-                /** It will be executed when its true*/
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
-                        mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
-                    },
-                    TruePrefUtils.getInstance()
-                        .init(context, prefNameSimpleNativeInAdvanced).delayMs
-                )
-            }
-//        }
+        if (!TrueAdLimitUtils.isBanned(
+                context,
+                prefNameSimpleNativeInAdvanced,
+                "Native Ad In Advance"
+            )
+        ) {
+            /** It will be executed when its true*/
+            Handler(Looper.getMainLooper()).postDelayed(
+                {
+                    mSimpleAdmobNativeAdLoader!!.loadAd(AdRequest.Builder().build())
+                },
+                TruePrefUtils.getInstance()
+                    .init(context, prefNameSimpleNativeInAdvanced).delayMs
+            )
+        }
     }
 
     private fun inflateSimpleNativeAdInAdvance(
@@ -1112,18 +1096,15 @@ class TrueAdMobManager(
         nativeAdId: String,
         trueZNativeBannerSimpleView: TrueZNativeBannerSimpleView,
     ) {
-//        if (isAppInstalledFromPlay(context)) {
-            if (mSimpleAdmobNativeAdLoader != null && !mSimpleAdmobNativeAdLoader!!.isLoading) {
-                if (mSimpleAdmobNative != null) {
-                    inflateSimpleNativeAdInAdvance(
-                        mSimpleAdmobNative!!,
-                        trueZNativeBannerSimpleView
-                    )
-                }
-            } else {
-                loadAdmobSimpleNativeInAdvance(context, nativeAdId)
+        if (mSimpleAdmobNativeAdLoader != null && !mSimpleAdmobNativeAdLoader!!.isLoading) {
+            if (mSimpleAdmobNative != null) {
+                inflateSimpleNativeAdInAdvance(
+                    mSimpleAdmobNative!!,
+                    trueZNativeBannerSimpleView
+                )
             }
-//        }
+        } else {
+            loadAdmobSimpleNativeInAdvance(context, nativeAdId)
+        }
     }
-
 }
