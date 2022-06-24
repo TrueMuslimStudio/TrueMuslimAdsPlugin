@@ -411,6 +411,7 @@ class TrueAdMobManager(
                     TruePrefUtils.getInstance().init(zContext, prefNameFlippingNativeBanner).delayMs
                 )
             } else {
+                zNativeBannerFlippingView.visibility = View.GONE
                 Timber.tag("AdmobInter").d(
                     "Native Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
                         zContext,
@@ -528,6 +529,7 @@ class TrueAdMobManager(
                     TruePrefUtils.getInstance().init(zContext, prefNameNativeBanner).delayMs
                 )
             } else {
+                zNativeBannerFlippingView.visibility = View.GONE
                 Timber.tag("AdmobInter").d(
                     "Native Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
                         zContext,
@@ -652,6 +654,7 @@ class TrueAdMobManager(
                             TruePrefUtils.getInstance().init(context, prefName).delayMs
                         )
                     } else {
+                        zBannerView.visibility = View.GONE
                         Timber.tag("Banner_Ads")
                             .d(
                                 "Banner Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
@@ -785,6 +788,7 @@ class TrueAdMobManager(
                     TruePrefUtils.getInstance().init(context, prefNameNative).delayMs
                 )
             } else {
+                zNativeAdvancedView.visibility = View.GONE
                 Timber.tag("Native_Ads")
                     .d(
                         "Native Ad Is Banned : " + !TrueAdLimitUtils.isBanned(
@@ -969,6 +973,7 @@ class TrueAdMobManager(
                 inflateAdNativeAdInAdvance(context, mAdmobNative!!, zNativeAdvancedView)
             }
         } else {
+            zNativeAdvancedView.visibility = View.GONE
             loadAdmobNativeInAdvance(context, nativeAdId)
         }
     }
@@ -1099,6 +1104,7 @@ class TrueAdMobManager(
                 )
             }
         } else {
+            trueZNativeBannerSimpleView.visibility = View.GONE
             loadAdmobFlippingNativeInAdvance(context, nativeAdId)
         }
     }
@@ -1228,6 +1234,7 @@ class TrueAdMobManager(
                 )
             }
         } else {
+            trueZNativeBannerSimpleView.visibility = View.GONE
             loadAdmobSimpleNativeInAdvance(context, nativeAdId)
         }
     }
