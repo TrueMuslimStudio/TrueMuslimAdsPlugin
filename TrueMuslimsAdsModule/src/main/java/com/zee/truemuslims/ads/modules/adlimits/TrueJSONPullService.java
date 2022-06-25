@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import timber.log.Timber;
 
 /**
  * Created by Malik Zeeshan Habib (True Muslim) on 14,May,2022
@@ -41,7 +40,6 @@ public class TrueJSONPullService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(TAG, "Start Pulling JSON data");
-        Timber.d("Start Pulling JSON data");
         if (intent == null)
             return;
         String mUrl;
@@ -103,13 +101,13 @@ public class TrueJSONPullService extends IntentService {
             }
 
         } catch (MalformedURLException e) {
-            Timber.e("Error : Pulling JSON data => Malformed Url");
+
             e.printStackTrace();
         } catch (IOException e) {
-            Timber.e("Error : Pulling JSON data => IO Exception");
+
             e.printStackTrace();
         } catch (JSONException e) {
-            Timber.e("Error : Read JSON data => Error extracting items from JSON Object");
+
             e.printStackTrace();
         } finally {
             if (connection != null) {
@@ -121,7 +119,7 @@ public class TrueJSONPullService extends IntentService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Timber.e("Error : Pulling JSON data => Could Not close Reader");
+
             }
         }
     }
