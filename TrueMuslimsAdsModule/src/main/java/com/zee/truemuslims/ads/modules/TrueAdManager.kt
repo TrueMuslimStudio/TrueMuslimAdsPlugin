@@ -77,6 +77,22 @@ object TrueAdManager : TrueAdCallBackInterface {
         }
     }
 
+    fun zLoadInterstitialWithOutCallBacks(
+        activity: Activity,
+        zPriorityType: TrueAdPriorityType = zInterstitialPriorityType,
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> {
+                    zAdMobManager?.zLoadInterstitialAdWithoutCallBacks(
+                        activity, interstitialAdId!!,
+                    )
+                }
+                Z_NONE -> Unit
+            }
+        }
+    }
+
     fun zShowInterstitial(
         activity: Activity,
         interNewAdID: String,
@@ -93,6 +109,28 @@ object TrueAdManager : TrueAdCallBackInterface {
                         zAdMobManager?.zLoadInterstitialAd(
                             activity, interNewAdID,
                             trueAdCallBackInterface
+                        )
+                    }
+                }
+                else -> Unit
+            }
+        }
+    }
+
+    fun zShowInterstitialWithOutCallBacks(
+        activity: Activity,
+        interNewAdID: String,
+        priority: TrueAdPriorityType = zInterstitialPriorityType
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (priority) {
+                Z_AD_MOB -> {
+                    if (zAdMobManager?.zInterstitialAd != null) {
+                        zAdMobManager?.zInterstitialAd?.show(activity)
+                        return
+                    } else {
+                        zAdMobManager?.zLoadInterstitialAdWithoutCallBacks(
+                            activity, interNewAdID
                         )
                     }
                 }
@@ -437,6 +475,12 @@ object TrueAdManager : TrueAdCallBackInterface {
             zAdManagerInterCallbacks?.zOnAdFailedToLoad(zAdType, zError)
             zLoadInterstitial(
                 zActivity!!,
+                zPriorityType = zGetInterFallBackPriority(
+                    zAdType
+                )
+            )
+            zLoadInterstitialWithOutCallBacks(
+                zActivity,
                 zPriorityType = zGetInterFallBackPriority(
                     zAdType
                 )

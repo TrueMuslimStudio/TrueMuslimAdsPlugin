@@ -117,7 +117,11 @@ class MainActivity : AppCompatActivity() {
         /**Check Update Module*/
         trueZInAppUpdate = TrueZInAppUpdate(this)
         zMainBinding.zCheckUpdate.setOnClickListener {
-            trueZInAppUpdate.getInAppUpdate()
+            /*trueZInAppUpdate.getInAppUpdate()*/
+            TrueAdManager.zShowInterstitialWithOutCallBacks(
+                this,
+                resources.getString(R.string.Admob_InterstitialId)
+            )
         }
         trueInAppReview = TrueZInAppReview(this)
         trueInAppReview.zShowRatingDialogue()

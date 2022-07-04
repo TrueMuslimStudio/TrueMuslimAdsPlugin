@@ -87,8 +87,8 @@ class TrueAdMobManager(
         }
     }
 
-    /*@SuppressLint("BinaryOperationInTimber")
-    fun zLoadInterstitialAd(
+    @SuppressLint("BinaryOperationInTimber")
+    fun zLoadInterstitialAdWithoutCallBacks(
         context: Activity,
         interId: String
     ) {
@@ -101,9 +101,7 @@ class TrueAdMobManager(
             var zCallBackCalled = false
             if (!TrueAdLimitUtils.isBanned(context, prefNameInter, "Interstitial Ad")) {
                 dialog.show()
-                */
-    /** it will be executed when its true*/
-    /*
+                /** it will be executed when its true*/
                 val adRequest = AdRequest.Builder().build()
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
@@ -189,7 +187,8 @@ class TrueAdMobManager(
                 )
             }
         }
-    }*/
+    }
+
 
     @SuppressLint("BinaryOperationInTimber")
     fun zLoadInterstitialAd(
@@ -1336,8 +1335,7 @@ class TrueAdMobManager(
                 TruePrefUtils.getInstance()
                     .init(context, prefNameSimpleNativeInAdvanced).delayMs
             )
-        }
-        else {
+        } else {
             simpleNativeBooleanValue = true
         }
     }
