@@ -1,11 +1,15 @@
 package com.zee.truemuslims.ads.modules.ads.plugin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.malik.suhaatech.ads.modules.interfaces.TrueAdCallBackInterface
 import com.zee.truemuslims.ads.modules.TrueAdManager
 import com.zee.truemuslims.ads.modules.TrueAdMobManager
 import com.zee.truemuslims.ads.modules.TrueAdsCalBackObject
+import com.zee.truemuslims.ads.modules.TrueConstants
 import com.zee.truemuslims.ads.modules.ads.plugin.databinding.ActivityMainBinding
+import com.zee.truemuslims.ads.modules.database.TrueZSPRepository
 
 import com.zee.truemuslims.ads.modules.in_app_module.TrueZInAppUpdate
 import com.zee.truemuslims.ads.modules.in_app_module.TrueZInAppReview
@@ -60,15 +64,15 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.admob_native_advanced_id),
             zMainBinding.zNativeSimpleBanner
         )
-        TrueAdManager.zShowInterstitialInAdvance(this)
-          TrueAdManager.zShowFlippingNativeBanner(
-              zMainBinding.zNativeFlippingBanner,
-              getString(R.string.Admob_NativeAdvancedId)
-          )
-          TrueAdManager.zShowSimpleNativeBanner(
-              zMainBinding.zNativeSimpleBanner,
-              getString(R.string.Admob_NativeAdvancedId)
-          )
+        /*TrueAdManager.zShowInterstitialInAdvance(this)*/
+        TrueAdManager.zShowFlippingNativeBanner(
+            zMainBinding.zNativeFlippingBanner,
+            getString(R.string.Admob_NativeAdvancedId)
+        )
+        TrueAdManager.zShowSimpleNativeBanner(
+            zMainBinding.zNativeSimpleBanner,
+            getString(R.string.Admob_NativeAdvancedId)
+        )
 
         TrueAdManager.zShowBannerWithOutFallback(
             zMainBinding.zBannerContainer,
@@ -76,10 +80,39 @@ class MainActivity : AppCompatActivity() {
         )
 
         zMainBinding.zShowInter.setOnClickListener {
-            TrueAdManager.zShowInterstitial(
-                this,
-                resources.getString(R.string.Admob_InterstitialId)
-            )
+            if (TrueConstants.isNetworkAvailable(this) && TrueConstants.isNetworkSpeedHigh()) {
+                TrueAdManager.zShowInterstitial(
+                    this,
+                    resources.getString(R.string.Admob_InterstitialId),
+                    object : TrueAdCallBackInterface {
+                        override fun onShowAdComplete() {
+                            if (TrueZSPRepository.getIfAdAvailable(this@MainActivity)) {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
+                            } else {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
+                            }
+                        }
+
+                    }
+                )
+            } else {
+                startActivity(
+                    Intent(
+                        this,
+                        MainActivity::class.java
+                    )
+                )
+            }
         }
         /**Check Update Module*/
         trueZInAppUpdate = TrueZInAppUpdate(this)

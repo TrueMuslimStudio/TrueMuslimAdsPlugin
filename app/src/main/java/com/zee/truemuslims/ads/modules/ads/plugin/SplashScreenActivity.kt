@@ -30,10 +30,10 @@ class SplashScreenActivity : AppCompatActivity() {
             this,
             resources.getString(R.string.admob_native_advanced_id)
         )
-        TrueAdManager.zLoadInterstitialInAdvance(
+        /*TrueAdManager.zLoadInterstitialInAdvance(
             this,
             resources.getString(R.string.admob_interstitial_id)
-        )
+        )*/
 
         /*     TrueAdManager.zLoadSimpleNativeAdInAdvance(
                  this,

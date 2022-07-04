@@ -1,12 +1,18 @@
 package com.zee.truemuslims.ads.modules.adlimits;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +41,23 @@ public class TrueJSONPullService extends IntentService {
 
     public TrueJSONPullService() {
         super(null);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            String CHANNEL_ID = "True Ads Title";
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    "True Ads Text",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setContentTitle("")
+                    .setContentText("").build();
+            startForeground(1, notification);
+        }
     }
 
     @Override

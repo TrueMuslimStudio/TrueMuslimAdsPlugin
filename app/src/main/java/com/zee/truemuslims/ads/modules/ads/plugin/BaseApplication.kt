@@ -34,7 +34,7 @@ class BaseApplication : Application() {
         TrueAdManager.zSetTimeout(TrueConstants.h3SecTimeOut)
         if (TrueConstants.isNetworkAvailable(TrueAdManager.context) && TrueConstants.isNetworkSpeedHigh()) {
             TrueAntiAdLimit.getInstance()
-                .init(this, "https://suhaatech.com/AdsId/charging_animation_final_hkdsjsdhjgkdhsgjksdh.json")
+                .init(this, "https://suhaatech.com/AdsId/testads.json")
         }
         trueZAppOpenAd = TrueZAppOpenAd(this, resources.getString(R.string.app_open_ads_id))
     }

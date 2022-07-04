@@ -54,13 +54,13 @@ object TrueZSPRepository {
     }
 
     /**Get Interstitial Ad Counter Value*/
-    fun setAdInterCounter(context: Context, adCountValue: Int) {
-        getDefaultSharedPreferences(context).edit().putInt(AD_INTER_COUNTING_VALUE, adCountValue)
+    fun setAdAvailableValue(context: Context, AdAvailableValue: Boolean) {
+        getDefaultSharedPreferences(context).edit()
+            .putBoolean(AD_INTER_COUNTING_VALUE, AdAvailableValue)
             .apply()
     }
 
-    fun getAdInterstitialCounter(context: Context): Int {
-        return getDefaultSharedPreferences(context).getInt(AD_INTER_COUNTING_VALUE, 0)
+    fun getIfAdAvailable(context: Context): Boolean {
+        return getDefaultSharedPreferences(context).getBoolean(AD_INTER_COUNTING_VALUE, false)
     }
-
 }

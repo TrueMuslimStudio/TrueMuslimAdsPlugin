@@ -5,6 +5,7 @@ import static com.google.android.gms.ads.identifier.AdvertisingIdClient.getAdver
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -12,7 +13,6 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import java.io.IOException;
 
 import timber.log.Timber;
-
 
 /**
  * Created by Malik Zeeshan Habib (True Muslim) on 14,May,2022
@@ -39,7 +39,12 @@ public class TrueAntiAdLimit {
         /** Start Pulling json Data in the background*/
         Intent intent = new Intent(context, TrueJSONPullService.class);
         intent.putExtra("URL", JSONUrl);
-        context.startService(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+        /*context.startService(intent);*/
 
         /** Display TEST Device Id*/
         new Thread(() -> {

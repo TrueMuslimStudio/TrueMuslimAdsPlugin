@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import com.malik.suhaatech.ads.modules.interfaces.TrueAdCallBackInterface
 import com.zee.truemuslims.ads.modules.callbacks.TrueAdCallbacks
 import com.zee.truemuslims.ads.modules.callbacks.TrueInterCallbacks
 import com.zee.truemuslims.ads.modules.customadview.TrueZBannerView
@@ -18,7 +19,7 @@ import com.zee.truemuslims.ads.modules.types.TrueAdsType
 import com.zee.truemuslims.ads.modules.types.TrueWhatAd
 
 @SuppressLint("StaticFieldLeak")
-object TrueAdManager {
+object TrueAdManager : TrueAdCallBackInterface {
 
     private var zAdMobManager: TrueAdMobManager? = null
     private var TAG = "AdManagerClass"
@@ -67,7 +68,8 @@ object TrueAdManager {
             when (zPriorityType) {
                 Z_AD_MOB -> {
                     zAdMobManager?.zLoadInterstitialAd(
-                        activity, interstitialAdId!!
+                        activity, interstitialAdId!!,
+                        this
                     )
                 }
                 Z_NONE -> Unit
@@ -78,6 +80,7 @@ object TrueAdManager {
     fun zShowInterstitial(
         activity: Activity,
         interNewAdID: String,
+        trueAdCallBackInterface: TrueAdCallBackInterface,
         priority: TrueAdPriorityType = zInterstitialPriorityType
     ) {
         if (TrueConstants.isNetworkSpeedHigh()) {
@@ -88,7 +91,8 @@ object TrueAdManager {
                         return
                     } else {
                         zAdMobManager?.zLoadInterstitialAd(
-                            activity, interNewAdID
+                            activity, interNewAdID,
+                            trueAdCallBackInterface
                         )
                     }
                 }
@@ -568,5 +572,9 @@ object TrueAdManager {
                 zWhatAd = zWhatAd
             )
         }
+    }
+
+    override fun onShowAdComplete() {
+        TODO("Not yet implemented")
     }
 }
