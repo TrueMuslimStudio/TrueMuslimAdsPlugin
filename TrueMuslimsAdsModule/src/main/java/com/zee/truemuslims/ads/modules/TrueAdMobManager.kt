@@ -88,7 +88,7 @@ class TrueAdMobManager(
     }
 
     @SuppressLint("BinaryOperationInTimber")
-    fun zLoadInterstitialAdWithoutCallBacks(
+    fun zLoadInterstitialAd(
         context: Activity,
         interId: String
     ) {
@@ -191,7 +191,7 @@ class TrueAdMobManager(
 
 
     @SuppressLint("BinaryOperationInTimber")
-    fun zLoadInterstitialAd(
+    fun zLoadInterstitialAdWithCallBacks(
         context: Activity,
         interId: String,
         trueAdCallBackInterface: TrueAdCallBackInterface

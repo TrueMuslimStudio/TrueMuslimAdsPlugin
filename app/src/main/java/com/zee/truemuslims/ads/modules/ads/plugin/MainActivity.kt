@@ -80,8 +80,17 @@ class MainActivity : AppCompatActivity() {
         )
 
         zMainBinding.zShowInter.setOnClickListener {
+            TrueAdManager.zShowInterstitial(
+                this,
+                resources.getString(R.string.Admob_InterstitialId)
+            )
+        }
+        /**Check Update Module*/
+        trueZInAppUpdate = TrueZInAppUpdate(this)
+        zMainBinding.zCheckUpdate.setOnClickListener {
+            /*trueZInAppUpdate.getInAppUpdate()*/
             if (TrueConstants.isNetworkAvailable(this) && TrueConstants.isNetworkSpeedHigh()) {
-                TrueAdManager.zShowInterstitial(
+                TrueAdManager.zShowInterstitialWithOutCallBacks(
                     this,
                     resources.getString(R.string.Admob_InterstitialId),
                     object : TrueAdCallBackInterface {
@@ -113,15 +122,6 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             }
-        }
-        /**Check Update Module*/
-        trueZInAppUpdate = TrueZInAppUpdate(this)
-        zMainBinding.zCheckUpdate.setOnClickListener {
-            /*trueZInAppUpdate.getInAppUpdate()*/
-            TrueAdManager.zShowInterstitialWithOutCallBacks(
-                this,
-                resources.getString(R.string.Admob_InterstitialId)
-            )
         }
         trueInAppReview = TrueZInAppReview(this)
         trueInAppReview.zShowRatingDialogue()

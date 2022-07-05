@@ -68,6 +68,22 @@ object TrueAdManager : TrueAdCallBackInterface {
             when (zPriorityType) {
                 Z_AD_MOB -> {
                     zAdMobManager?.zLoadInterstitialAd(
+                        activity, interstitialAdId!!
+                    )
+                }
+                Z_NONE -> Unit
+            }
+        }
+    }
+
+    fun zLoadInterstitialWithCallBacks(
+        activity: Activity,
+        zPriorityType: TrueAdPriorityType = zInterstitialPriorityType,
+    ) {
+        if (TrueConstants.isNetworkSpeedHigh()) {
+            when (zPriorityType) {
+                Z_AD_MOB -> {
+                    zAdMobManager?.zLoadInterstitialAdWithCallBacks(
                         activity, interstitialAdId!!,
                         this
                     )
@@ -77,23 +93,29 @@ object TrueAdManager : TrueAdCallBackInterface {
         }
     }
 
-    fun zLoadInterstitialWithOutCallBacks(
+    fun zShowInterstitial(
         activity: Activity,
-        zPriorityType: TrueAdPriorityType = zInterstitialPriorityType,
+        interNewAdID: String,
+        priority: TrueAdPriorityType = zInterstitialPriorityType
     ) {
         if (TrueConstants.isNetworkSpeedHigh()) {
-            when (zPriorityType) {
+            when (priority) {
                 Z_AD_MOB -> {
-                    zAdMobManager?.zLoadInterstitialAdWithoutCallBacks(
-                        activity, interstitialAdId!!,
-                    )
+                    if (zAdMobManager?.zInterstitialAd != null) {
+                        zAdMobManager?.zInterstitialAd?.show(activity)
+                        return
+                    } else {
+                        zAdMobManager?.zLoadInterstitialAd(
+                            activity, interNewAdID
+                        )
+                    }
                 }
-                Z_NONE -> Unit
+                else -> Unit
             }
         }
     }
 
-    fun zShowInterstitial(
+    fun zShowInterstitialWithOutCallBacks(
         activity: Activity,
         interNewAdID: String,
         trueAdCallBackInterface: TrueAdCallBackInterface,
@@ -106,31 +128,9 @@ object TrueAdManager : TrueAdCallBackInterface {
                         zAdMobManager?.zInterstitialAd?.show(activity)
                         return
                     } else {
-                        zAdMobManager?.zLoadInterstitialAd(
+                        zAdMobManager?.zLoadInterstitialAdWithCallBacks(
                             activity, interNewAdID,
                             trueAdCallBackInterface
-                        )
-                    }
-                }
-                else -> Unit
-            }
-        }
-    }
-
-    fun zShowInterstitialWithOutCallBacks(
-        activity: Activity,
-        interNewAdID: String,
-        priority: TrueAdPriorityType = zInterstitialPriorityType
-    ) {
-        if (TrueConstants.isNetworkSpeedHigh()) {
-            when (priority) {
-                Z_AD_MOB -> {
-                    if (zAdMobManager?.zInterstitialAd != null) {
-                        zAdMobManager?.zInterstitialAd?.show(activity)
-                        return
-                    } else {
-                        zAdMobManager?.zLoadInterstitialAdWithoutCallBacks(
-                            activity, interNewAdID
                         )
                     }
                 }
@@ -479,7 +479,7 @@ object TrueAdManager : TrueAdCallBackInterface {
                     zAdType
                 )
             )
-            zLoadInterstitialWithOutCallBacks(
+            zLoadInterstitialWithCallBacks(
                 zActivity,
                 zPriorityType = zGetInterFallBackPriority(
                     zAdType
